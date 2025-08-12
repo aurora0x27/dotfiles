@@ -1,0 +1,90 @@
+[env]
+# TERM variable
+#
+# This value is used to set the `$TERM` environment variable for
+# each instance of Alacritty. If it is not present, alacritty will
+# check the local terminfo database and use 'alacritty' if it is
+# available, otherwise 'xterm-256color' is used.
+TERM = "xterm-256color"
+
+[terminal]
+
+shell = "/usr/bin/zsh"
+
+[window]
+
+opacity = 0.9
+
+padding.x = 2
+padding.y = 2
+
+decorations = "Full"
+decorations_theme_variant = "Dark" # "Dark"
+dimensions.columns = 200
+dimensions.lines = 50
+
+dynamic_title = false
+
+[font]
+
+# normal.family         = "JetBrainsMonoNL Nerd Font"
+# bold.family           = "JetBrainsMonoNL Nerd Font"
+# italic.family         = "JetBrainsMonoNL Nerd Font"
+# bold_italic.family    = "JetBrainsMonoNL Nerd Font"
+
+# normal.family       = "Monaco Nerd Font"
+# bold.family         = "Monaco Nerd Font"
+# italic.family       = "Monaco Nerd Font"
+# bold_italic.family  = "Monaco Nerd Font"
+
+normal.family       = "Maple Mono NF CN"
+bold.family         = "Maple Mono NF CN"
+italic.family       = "Maple Mono NF CN"
+bold_italic.family  = "Maple Mono NF CN"
+
+size = 9.5
+
+# size = 10.5
+
+[general]
+# $HOME/.config/alacritty/alacritty.toml
+# by Rito Ghosh 2023-10-06
+
+# Alacritty now uses TOML formatting for its config files.
+# This is a simple example.
+
+# There are the specification here: https://github.com/alacritty/alacritty/blob/master/extra/man/alacritty.5.scd
+# It is not obvious how it translates to TOML. But it is extremely straightforward.
+
+# example: WINDOW, COLORS, etc. are tables, and should be represented as [window], [colors], respectively.
+# specifics of variables go under them. e.g.- look under "dynamic_padding" under-
+# https://github.com/alacritty/alacritty/blob/master/extra/man/alacritty.5.scd#window
+# write `dynamic_padding = true` (without backticks -`) under the table [window]
+# for variables with multiple values, use "dotted keys". Like setting `padding.x = 5` under [window].
+# This is simple. If not clear, do several trials and errors.
+
+# Below is my initial set-up. The TOML homepage (https://toml.io/en/v1.0.0) was very helpful in figuring this out. 
+# I put the file alacritty.toml in $HOME/.config/alacritty. However it can be kept anywhere among the places mentioned in
+# https://github.com/alacritty/alacritty/tree/master#configuration
+
+import = [
+    "~/.config/alacritty/color-scheme/catppuccin-mocha.toml"
+]
+
+# Tip: for inspiration, look for values in the source code files of your favorite VS Code themes, and use the color picker in
+# Google to test colors before setting a value, or simply using an editor such as VS Code where colors are displayed in a 
+# small box when a HEX is detected by the editor.
+
+# [cursor]
+# # Set to false to disable completely
+# smooth_motion = true
+# # 0.0 = cursor is not moving, 1.0 = cursor moves instantly
+# smooth_motion_factor = 0.6
+# # 0.0 = broken, 1.0 = cursor shape is unaffected by movement
+# smooth_motion_spring = 0.7
+# # Limits how the cursor size may change
+# smooth_motion_max_stretch_x = 3.0
+# smooth_motion_max_stretch_y = 3.0
+# # Override "block" cursor if you don't like how it looks in this fork
+# # I prefer "underline"
+# block_replace_shape = "underline"

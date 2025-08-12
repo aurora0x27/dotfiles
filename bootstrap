@@ -1,0 +1,585 @@
+#!/usr/bin/env bash
+
+function run_item_action() {
+    local item="$1"
+    local action="$2"
+
+    local item_conf="./items/$item/item.conf"
+    if [[ ! -f "$item_conf" ]]; then
+        log_error "Item '$item' not found"
+        return 1
+    fi
+
+    source "$item_conf"
+
+    if declare -F "$action" > /dev/null; then
+        "$action"
+        if [ $? -ne 0 ]; then
+            log_error "Action $action failed"
+        fi
+    else
+        log_error "Action '$action' not defined in item '$item'"
+    fi
+}
+
+function show_all_items() {
+    DIR="items/"
+
+    shopt -s nullglob
+    entries=("$DIR"/*)
+    shopt -u nullglob
+
+    color_echo BLUE "Items:"
+
+    if [ ${#entries[@]} -eq 0 ]; then
+        log_info "No items"
+    else
+        for entry in "${entries[@]}"; do
+            if [ -d "$entry" ]; then
+                color_echo BLUE $(basename "$entry")
+            fi
+        done
+    fi
+}
+
+# item_new $name
+item_new() {
+    local item="$1"
+
+    if [ -d "items/$item" ]; then
+        log_warn "Item exists"
+    else
+        mkdir -p "items/$item/src"
+    fi
+
+    if [ -f "items/$item/item.conf" ]; then
+        log_warn "Config file 'items/$item/item.conf' exists, Nothing todo"
+        return 1
+    fi
+
+    echo "#!/usr/bin/env bash" >> "items/$item/item.conf"
+    echo "" >> "items/$item/item.conf"
+
+    echo "# Check the dependency return true if installed dependency" >> "items/$item/item.conf"
+    echo "function check_dep() {" >> "items/$item/item.conf"
+    echo "    return 0" >> "items/$item/item.conf"
+    echo "}" >> "items/$item/item.conf"
+    echo "" >> "items/$item/item.conf"
+
+    echo "# Things to do to install the dependency" >> "items/$item/item.conf"
+    echo "function install_dep() {" >> "items/$item/item.conf"
+    echo "    :;" >> "items/$item/item.conf"
+    echo "}" >> "items/$item/item.conf"
+    echo "" >> "items/$item/item.conf"
+
+    echo "# Things to do to install the item" >> "items/$item/item.conf"
+    echo "function install() {" >> "items/$item/item.conf"
+    echo "    :;" >> "items/$item/item.conf"
+    echo "}" >> "items/$item/item.conf"
+    echo "" >> "items/$item/item.conf"
+
+    echo "# Check if the item is installed, return true if installed" >> "items/$item/item.conf"
+    echo "function check() {" >> "items/$item/item.conf"
+    echo "    return 0" >> "items/$item/item.conf"
+    echo "}" >> "items/$item/item.conf"
+    echo "" >> "items/$item/item.conf"
+
+    echo "# Things to do to uninstall the item" >> "items/$item/item.conf"
+    echo "function uninstall() {" >> "items/$item/item.conf"
+    echo "    :;" >> "items/$item/item.conf"
+    echo "}" >> "items/$item/item.conf"
+
+    log_success "Initialized item $item"
+}
+
+function print_help() {
+    color_echo GREEN "Bootstrap the dotfiles"
+    color_echo GREEN "Usage: ./bootstrap <options>"
+    color_echo GREEN ""
+    color_echo GREEN "Options:"
+    color_echo GREEN "-i    --install                   Install items"
+    color_echo GREEN "-u    --uninstall                 Uninstall items"
+    color_echo GREEN "-p    --preset=<Preset>           Load preset"
+    color_echo GREEN "      --list-presets              List presets"
+    color_echo GREEN "      --item={item1,item2}        Add items to task list"
+    color_echo GREEN "      --exlude={item1,item2}      Remove items from task list"
+    color_echo GREEN "      --new-item={name1,name2}    New an item in items"
+    color_echo GREEN "      --id=<sys-id>               Assign sys id to identify system(cover the config)"
+    color_echo GREEN "-n    --dry-run                   Print the steps to be executed"
+    color_echo GREEN "-v    --verbose                   Print the steps while executing"
+    color_echo GREEN "-l    --list                      List all the items"
+    color_echo GREEN "-ls   --list-status               List all the statuses of items"
+    color_echo GREEN "-h    --help                      Print the help menu"
+    color_echo GREEN "-d    --debug                     Set debug mode"
+    color_echo GREEN "      --check-dependency          Check the dependency of items"
+    color_echo GREEN "      --install-dependency        Install the dependency of items"
+}
+
+function print_presets() {
+    for key in "${!presets[@]}"; do
+        color_echo BLUE "Preset: $key"
+        for item in ${presets[$key]}; do
+            color_echo GREEN "  - $item"
+        done
+    done
+}
+
+function show_status() {
+    local item_dir
+    for item_dir in items/*; do
+        if [[ -d "$item_dir" && -f "$item_dir/item.conf" ]]; then
+        (
+            # Source the item.conf file
+            source "$item_dir/item.conf"
+
+            # Check if check function is defined
+            if declare -f check >/dev/null 2>&1; then
+                check
+                result=$?
+                if [[ $result -eq 1 ]]; then
+                    color_echo GREEN "[+] $(basename "$item_dir")"
+                elif [[ $result -eq 0 ]]; then
+                    color_echo GREEN "[ ] $(basename "$item_dir")"
+                else
+                    color_echo YELLOW "[?] $(basename "$item_dir") function check must return 0 or 1"
+                fi
+            else
+                color_echo RED "[!] $(basename "$item_dir") does not define 'check'"
+            fi
+        )
+        fi
+    done
+}
+
+function run() {
+    if [[ "$dry_run" == 1 || "$verbose" == 1 ]]; then
+        color_echo CYAN "+ $*"
+    fi
+    if [[ "$dry_run" != "1" ]]; then
+        eval "$@"
+    fi
+}
+
+# Global state
+verbose=0
+dry_run=0
+install_dep=0
+check_dep=0
+debug=0
+target_list=()
+exclude_list=()
+action="unset"
+# End Global state
+
+# Script begin
+set -uo pipefail
+
+# Load utils
+utils=(color.sh log.sh presets.sh)
+for i in "${utils[@]}"; do
+    if [[ -f "./utils/$i" ]]; then
+        source "./utils/$i"
+    else
+        echo "Warn: Cannot find utils/$i" >&2
+    fi
+done
+
+if [ $# -eq 0 ]; then
+    print_help
+    exit 0
+fi
+
+# Load config file
+if [[ -f ./bootstrap.conf ]]; then
+    source ./bootstrap.conf
+else
+    log_warn "No config file, create one..."
+    touch ./bootstrap.conf
+fi
+
+# Parse args
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -i|--install)
+            action="install"
+            shift
+            ;;
+
+        -u|--uninstall)
+            action="uninstall"
+            shift
+            ;;
+
+        -p)
+            exlude+=("$2")
+            shift 2
+            ;;
+
+        --preset=*)
+            key="${1#--preset=}"
+            if [[ -z "${presets[$key]+_}" ]]; then
+                log_error "Unknown preset '$key'"
+                print_presets
+                exit 1
+            fi
+            for item in ${presets[$key]}; do
+                target_list+=("$item")
+            done
+            shift
+            ;;
+
+        --preset)
+            if [[ -z "${2:-}" || "${2:-}" == -* ]]; then
+                log_error "Missing or invalid preset name after '--preset'"
+                print_presets
+                exit 1
+            fi
+            key="$2"
+            if [[ -z "${presets[$key]+_}" ]]; then
+                log_error "Unknown preset '$key'"
+                print_presets
+                exit 1
+            fi
+            for item in ${presets[$key]}; do
+                target_list+=("$item")
+            done
+            shift 2
+            ;;
+
+        --list-presets)
+            print_presets
+            exit 0
+            ;;
+
+        -I)
+            if [[ -z "${2:-}" || "${2:-}" == -* ]] then
+                log_error "Missing or invalid item name after '-I'"
+                exit 1
+            fi
+            item="$2"
+            target_list+=("$item")
+            shift 2
+            ;;
+
+        -I*)
+            item="${1#-I}"
+            target_list+=("$item")
+            shift
+            ;;
+
+        --item=*)
+            val="${1#--item=}"
+            if [[ "$val" == \{*} ]]; then
+                # Brace expansion: eval hack
+                expanded_items=$(eval echo "$val")
+                for item in $expanded_items; do
+                    target_list+=("$item")
+                done
+            else
+                target_list+=("$val")
+            fi
+            shift
+            ;;
+
+        --item)
+            if [[ -z "${2:-}" || "${2:-}" == -* ]] then
+                log_error "Missing or invalid item name after '--item'"
+                exit 1
+            fi
+            item="$2"
+            target_list+=("$item")
+            shift 2
+            ;;
+
+        --exclude=*)
+            val="${1#--exclude=}"
+            if [[ "$val" == \{*} ]]; then
+                # Brace expansion: eval hack
+                expanded_items=$(eval echo "$val")
+                for item in $expanded_items; do
+                    exclude_list+=("$item")
+                done
+            else
+                exclude_list+=("$val")
+            fi
+            shift
+            ;;
+
+        --exclude)
+            if [[ -z "${2:-}" || "${2:-}" == -* ]] then
+                log_error "Missing or invalid item name after '--exclude'"
+                exit 1
+            fi
+            exclude_list+=("$2")
+            shift 2
+            ;;
+
+        --check-dependency)
+            check_dep=1
+            shift
+            ;;
+
+        --new-item=*)
+            val="${1#--new-item=}"
+            if [[ "$val" == \{*} ]]; then
+                # Brace expansion: eval hack
+                expanded_items=$(eval echo "$val")
+                for item in $expanded_items; do
+                    item_new $item
+                done
+            else
+                item_new $val
+            fi
+            shift
+            ;;
+
+        --new-item)
+            if [[ -z "${2:-}" || "${2:-}" == -* ]] then
+                log_error "Missing or invalid item name after '--new-item'"
+                exit 1
+            fi
+            item_new $2
+            shift 2
+            ;;
+
+        --install-dependency)
+            install_dep=1
+            shift
+            ;;
+
+        -n|--dry-run)
+            dry_run=1
+            shift
+            ;;
+
+        -v|--verbose)
+            verbose=1
+            shift
+            ;;
+
+        -h|--help)
+            print_help
+            exit 0
+            ;;
+
+        -d|--debug)
+            debug=1
+            shift
+            ;;
+
+        -ls|--list-status)
+            show_status
+            exit 0
+            ;;
+
+        *)
+            log_warn "Not an option: $1"
+            shift
+            ;;
+    esac
+done
+
+if [[ "$verbose" == 1 ]]; then
+    log_info "Global Value: verbose = $verbose"
+    log_info "Global Value: dry_run = $dry_run"
+    log_info "Global Value: install_dep = $install_dep"
+    log_info "Global Value: check_dep = $check_dep"
+    log_info "Global Value: debug = $debug"
+    log_info "Global Value: target_list = [${target_list[@]:-}]"
+    log_info "Global Value: exclude_list = [${exclude_list[@]:-}]"
+    log_info "Global Value: action = $action"
+    echo ""
+fi
+
+case "$action" in
+    "install")
+        for target in "${target_list[@]}"; do
+            skip=false
+            for excluded in "${exclude_list[@]}"; do
+                if [[ "$target" == "$excluded" ]]; then
+                    skip=true
+                    break
+                fi
+            done
+
+            if $skip; then
+                continue
+            fi
+            if [[ -d "items/$target" && -f "items/$target/item.conf" ]]; then
+                (
+                    if [[ ${verbose} == 1 ]]; then
+                        log_info "Task: install $target"
+                    fi
+
+                    source "items/$target/item.conf"
+
+                    has_check_dep=$(declare -f check_dep >/dev/null 2>&1 && echo 1 || echo 0)
+                    has_install_dep=$(declare -f install_dep >/dev/null 2>&1 && echo 1 || echo 0)
+                    has_install=$(declare -f install >/dev/null 2>&1 && echo 1 || echo 0)
+                    has_check=$(declare -f check >/dev/null 2>&1 && echo 1 || echo 0)
+
+                    if [[ "$check_dep" == 1 || "$install_dep" == 1 ]]; then
+                        if [[ "$has_check_dep" == 1 ]]; then
+                            check_dep
+                            has_dep=$?
+                            if [[ $verbose == 1 ]]; then
+                                if [[ $has_dep == 1 ]]; then
+                                    prompt="$GREEN ok"
+                                else
+                                    prompt="$RED need install"
+                                fi
+                                color_echo BOLD "Checking dependency...$prompt"
+                            fi
+                        else
+                            log_error "$target did not define function 'check_dep'"
+                            exit 1
+                        fi
+
+                        if [[ "$install_dep" == 1 && "${has_dep:-0}" != 1 ]]; then
+                            if [[ "$has_install_dep" == 1 ]]; then
+                                install_dep
+                                result=$?
+                                if [[ $verbose == 1 ]]; then
+                                    if [[ $result == 0 ]]; then
+                                        prompt="$GREEN ok"
+                                    else
+                                        prompt="$RED need install"
+                                    fi
+                                    color_echo BOLD "Installing dependency...$prompt"
+                                fi
+                            else
+                                log_error "$target did not define function 'install_dep'"
+                                exit 1
+                            fi
+                        fi
+                    fi
+
+
+                    if [[ "$has_check" == 1 ]]; then
+                        check
+                        result=$?
+                        if [[ $result == 1 ]]; then
+                            if [[ $dry_run != 1 ]]; then
+                                log_warn "$target is installed"
+                                while true; do
+                                    read -p "Reinstall? [Y/n] " y_or_n
+                                    case "$y_or_n" in
+                                        [Yy]) break ;;
+                                        [Nn]) exit 1 ;;
+                                        *   ) log_warn "Not an option" ;;
+                                    esac
+                                done
+                            fi
+                        fi
+                    else
+                        log_error "$target did not define function 'check'"
+                        exit 1
+                    fi
+
+                    if [[ "$has_install" == 1 ]]; then
+                        install
+                        result=$?
+                        if [[ $result == 0 ]]; then
+                            exit 0
+                        else
+                            exit 1
+                        fi
+                    else
+                        log_error "$target did not define function 'install'"
+                        exit 1
+                    fi
+                )
+                if [[ $dry_run != 1 ]]; then
+                    result=$?
+                    if [[ $result == 0 ]]; then
+                        prompt="$GREEN ok"
+                    else
+                        prompt="$RED failed"
+                    fi
+                    color_echo BOLD "Installing item '$target'...$prompt"
+                fi
+                echo ""
+            else
+                log_warn "Target $target not found..."
+            fi
+        done
+        ;;
+
+    "uninstall")
+        for target in "${target_list[@]}"; do
+            skip=false
+            for excluded in "${exclude_list[@]}"; do
+                if [[ "$target" == "$excluded" ]]; then
+                    skip=true
+                    break
+                fi
+            done
+
+            if $skip; then
+                continue
+            fi
+
+            if [[ -d "items/$target" && -f "items/$target/item.conf" ]]; then
+                (
+                    if [[ $verbose == 1 ]]; then
+                        log_info "Task: uninstall $target"
+                    fi
+
+                    source "items/$target/item.conf"
+
+                    has_check=$(declare -f check >/dev/null 2>&1 && echo 1 || echo 0)
+                    has_uninstall=$(declare -f uninstall >/dev/null 2>&1 && echo 1 || echo 0)
+
+                    if [[ "$has_check" == 1 ]]; then
+                        check
+                        is_installed=$?
+                        if [[ $verbose == 1 ]]; then
+                            if [[ $is_installed == 1 ]]; then
+                                prompt="$GREEN installed"
+                            else
+                                prompt="$YELLOW not installed"
+                            fi
+                            color_echo BOLD "Checking install state...$prompt"
+                        fi
+                    else
+                        log_error "$target did not define function 'check'"
+                        exit 1
+                    fi
+
+                    if [[ "$is_installed" == 1 ]]; then
+                        if [[ "$has_uninstall" == 1 ]]; then
+                            uninstall
+                            result=$?
+                            if [[ $verbose == 1 ]]; then
+                                if [[ $result == 0 ]]; then
+                                    prompt="$GREEN ok"
+                                else
+                                    prompt="$RED failed"
+                                fi
+                                color_echo BOLD "Uninstalling...$prompt"
+                            fi
+                        else
+                            log_error "$target did not define function 'uninstall'"
+                            exit 1
+                        fi
+                    else
+                        if [[ $verbose == 1 ]]; then
+                            color_echo BOLD "Skipping uninstall (not installed)"
+                        fi
+                    fi
+                )
+            else
+                log_warn "Target $target not found..."
+            fi
+        done
+        ;;
+    "unset")
+        log_warn "Action Unset"
+        exit 0
+        ;;
+
+    *)
+        log_error "Unknown action '$action'"
+        exit 1
+        ;;
+esac
