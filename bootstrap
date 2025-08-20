@@ -1,5 +1,40 @@
 #!/usr/bin/env bash
 
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+CYAN='\033[36m'
+MAGENTA='\033[35m'
+BLUE='\033[0;34m'
+BOLD='\033[1m'
+RESET='\033[0m'
+
+color_echo() {
+    local color="$1"
+    shift
+    echo -e "${!color}$*${RESET}"
+}
+
+log_info() {
+    echo -e "${BLUE}[INFO] $* ${RESET}"
+}
+
+log_warn() {
+    echo -e "${YELLOW}[WARN] $* ${RESET}"
+}
+
+log_error() {
+    echo -e "${RED}[ERROR] $* ${RESET}" >&2
+}
+
+log_success() {
+    echo -e "${GREEN}[OK] $* ${RESET}"
+}
+
+log_debug() {
+    [[ "${debug:-}" == 1 ]] && echo -e "${BOLD}[DEBUG]${RESET} $*"
+}
+
 function run_item_action() {
     local item="$1"
     local action="$2"
@@ -169,20 +204,11 @@ debug=0
 target_list=()
 exclude_list=()
 action="unset"
+declare -A presets
 # End Global state
 
 # Script begin
 set -uo pipefail
-
-# Load utils
-utils=(color.sh log.sh presets.sh)
-for i in "${utils[@]}"; do
-    if [[ -f "./utils/$i" ]]; then
-        source "./utils/$i"
-    else
-        echo "Warn: Cannot find utils/$i" >&2
-    fi
-done
 
 if [ $# -eq 0 ]; then
     print_help
@@ -196,6 +222,10 @@ else
     log_warn "No config file, create one..."
     touch ./bootstrap.conf
 fi
+
+
+# Load presets
+[[ -f presets.conf ]] && source presets.conf
 
 # Parse args
 while [[ $# -gt 0 ]]; do
