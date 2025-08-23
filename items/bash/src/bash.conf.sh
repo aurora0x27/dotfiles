@@ -179,4 +179,4 @@ export XMAKE_THEME=catppuccin_mocha
 
 HISTTIMEFORMAT='yyyy-mm-dd'
 
-eval "$(direnv hook bash)"
+# eval "$(direnv hook bash)"

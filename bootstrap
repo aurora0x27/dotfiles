@@ -228,7 +228,10 @@ if [[ -f ./bootstrap.conf ]]; then
     source ./bootstrap.conf
 else
     log_warn "No config file, create one..."
-    echo "#!/usr/bin/env bash\nrootdir=$PWD" > bootstrap.conf
+    echo "#!/usr/bin/env bash" >> bootstrap.conf
+    echo "rootdir=$PWD" >> bootstrap.conf
+    echo "sys_id=''"  >> bootstrap.conf
+    source ./bootstrap.conf
 fi
 
 
