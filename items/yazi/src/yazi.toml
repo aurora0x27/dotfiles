@@ -1,0 +1,16 @@
+# yazi.toml
+[mgr]
+show_hidden = false
+show_symlink = true
+
+[opener]
+play = [
+  { run = 'ffplay -autoexit "$@"', orphan = true, for = "unix" },
+]
+edit = [
+  { run = 'nvim "$@"', block = true, for = "unix" },
+]
+open = [
+  { run = 'open "$@"', desc = "Open" },
+]
+# ...

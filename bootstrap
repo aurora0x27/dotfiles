@@ -31,6 +31,10 @@ log_success() {
     echo -e "${GREEN}[OK] $* ${RESET}"
 }
 
+log_hint() {
+    echo -e "${MAGENTA}[Notice] $* ${RESET}"
+}
+
 log_debug() {
     [[ "${debug:-}" == 1 ]] && echo -e "${BOLD}[DEBUG]${RESET} $*"
 }
@@ -186,6 +190,10 @@ function show_status() {
     done
 }
 
+function trim() {
+    echo $(echo $1 | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+}
+
 function run() {
     if [[ "$dry_run" == 1 || "$verbose" == 1 ]]; then
         color_echo CYAN "+ $*"
@@ -220,7 +228,7 @@ if [[ -f ./bootstrap.conf ]]; then
     source ./bootstrap.conf
 else
     log_warn "No config file, create one..."
-    touch ./bootstrap.conf
+    echo "#!/usr/bin/env bash\nrootdir=$PWD" > bootstrap.conf
 fi
 
 
@@ -299,14 +307,17 @@ while [[ $# -gt 0 ]]; do
 
         --item=*)
             val="${1#--item=}"
-            if [[ "$val" == \{*} ]]; then
-                # Brace expansion: eval hack
-                expanded_items=$(eval echo "$val")
-                for item in $expanded_items; do
-                    target_list+=("$item")
+            if [[ "$val" =~ ^\{.*\}$ ]]; then
+                inner="${val:1:-1}"
+                IFS=',' read -ra items <<< "$inner"
+                for item in "${items[@]}"; do
+                    target_list+=("$(trim "$item")")
                 done
             else
-                target_list+=("$val")
+                IFS=',' read -ra items <<< "$val"
+                for item in "${items[@]}"; do
+                    target_list+=("$(trim "$item")")
+                done
             fi
             shift
             ;;
@@ -323,14 +334,17 @@ while [[ $# -gt 0 ]]; do
 
         --exclude=*)
             val="${1#--exclude=}"
-            if [[ "$val" == \{*} ]]; then
-                # Brace expansion: eval hack
-                expanded_items=$(eval echo "$val")
-                for item in $expanded_items; do
-                    exclude_list+=("$item")
+            if [[ "$val" =~ ^\{.*\}$ ]]; then
+                inner="${val:1:-1}"
+                IFS=',' read -ra items <<< "$inner"
+                for item in "${items[@]}"; do
+                    exclude_list+=("$(trim "$item")")
                 done
             else
-                exclude_list+=("$val")
+                IFS=',' read -ra items <<< "$val"
+                for item in "${items[@]}"; do
+                    exclude_list+=("$(trim "$item")")
+                done
             fi
             shift
             ;;
@@ -359,6 +373,23 @@ while [[ $# -gt 0 ]]; do
                 done
             else
                 item_new $val
+            fi
+            shift
+            ;;
+
+        --new-item=*)
+            val="${1#--new-item=}"
+            if [[ "$val" =~ ^\{.*\}$ ]]; then
+                inner="${val:1:-1}"
+                IFS=',' read -ra items <<< "$inner"
+                for item in "${items[@]}"; do
+                    item_new "$(trim "$item")"
+                done
+            else
+                IFS=',' read -ra items <<< "$val"
+                for item in "${items[@]}"; do
+                    item_new "$(trim "$item")"
+                done
             fi
             shift
             ;;
@@ -408,6 +439,14 @@ while [[ $# -gt 0 ]]; do
             ;;
     esac
 done
+
+if [[ -z "${target_list-set}" ]]; then
+    target_list=$(echo $target_list | tr ' ' '\n' | sort | uniq | tr '\n' ' ' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+fi
+
+if [[ -z "${exclude_list-set}" ]]; then
+    exclude_list=$(echo $exclude_list | tr ' ' '\n' | sort | uniq | tr '\n' ' ' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')
+fi
 
 if [[ "$verbose" == 1 ]]; then
     log_info "Global Value: verbose = $verbose"
@@ -465,21 +504,27 @@ case "$action" in
                             exit 1
                         fi
 
-                        if [[ "$install_dep" == 1 && "${has_dep:-0}" != 1 ]]; then
-                            if [[ "$has_install_dep" == 1 ]]; then
-                                install_dep
-                                result=$?
-                                if [[ $verbose == 1 ]]; then
-                                    if [[ $result == 0 ]]; then
-                                        prompt="$GREEN ok"
-                                    else
-                                        prompt="$RED need install"
+                        if [[ "$install_dep" == 1 ]]; then
+                            if [[ "${has_dep:-0}" != 1  ]]; then
+                                if [[ "$has_install_dep" == 1 ]]; then
+                                    install_dep
+                                    result=$?
+                                    if [[ $verbose == 1 ]]; then
+                                        if [[ $result == 0 ]]; then
+                                            prompt="$GREEN ok"
+                                        else
+                                            prompt="$RED failed"
+                                        fi
+                                        if [[ $dry_run != 1 ]]; then
+                                            color_echo BOLD "Installing dependency...$prompt"
+                                        fi
                                     fi
-                                    color_echo BOLD "Installing dependency...$prompt"
+                                else
+                                    log_error "$target did not define function 'install_dep'"
+                                    exit 1
                                 fi
                             else
-                                log_error "$target did not define function 'install_dep'"
-                                exit 1
+                                log_info "Dependency already installed"
                             fi
                         fi
                     fi
@@ -530,7 +575,7 @@ case "$action" in
                 fi
                 echo ""
             else
-                log_warn "Target $target not found..."
+                log_warn "Target '$target' not found..."
             fi
         done
         ;;
@@ -579,8 +624,8 @@ case "$action" in
                     if [[ "$is_installed" == 1 ]]; then
                         if [[ "$has_uninstall" == 1 ]]; then
                             uninstall
-                            result=$?
-                            if [[ $verbose == 1 ]]; then
+                            if [[ $dry_run != 1 ]]; then
+                                result=$?
                                 if [[ $result == 0 ]]; then
                                     prompt="$GREEN ok"
                                 else
@@ -593,9 +638,7 @@ case "$action" in
                             exit 1
                         fi
                     else
-                        if [[ $verbose == 1 ]]; then
-                            color_echo BOLD "Skipping uninstall (not installed)"
-                        fi
+                        color_echo BOLD YELLOW "Skipping uninstall (not installed)"
                     fi
                 )
             else
