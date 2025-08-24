@@ -161,7 +161,7 @@ source "$OSH"/oh-my-bash.sh
 
 unalias ll
 unalias l
-alias ls="/usr/bin/lsd"
+alias ls="lsd"
 alias ll="ls -hl"
 alias l="ls -al"
 alias vi="nvim"
