@@ -1,0 +1,32 @@
+{
+  "layer": "top",
+  "margin-top": 10,
+  "margin-bottom": 0,
+  "margin-left": 14,
+  "margin-right": 14,
+  "spacing": 0,
+  "include": [
+    "~/.config/waybar/theme/ml4w/modules.jsonc",
+    "~/.config/waybar/monitor.jsonc"
+  ],
+  "modules-left": [
+    "hyprland/submap",
+    "custom/fortune",
+    "hyprland/window",
+    "custom/empty"
+  ],
+  "modules-center": [
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    "custom/updates",
+    "pulseaudio",
+    "battery",
+    "network",
+    "group/hardware",
+    "group/tools",
+    "tray",
+    "custom/exit",
+    "clock"
+  ]
+}
