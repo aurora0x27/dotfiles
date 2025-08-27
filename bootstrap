@@ -39,28 +39,6 @@ log_debug() {
     [[ "${debug:-}" == 1 ]] && echo -e "${BOLD}[DEBUG]${RESET} $*"
 }
 
-function run_item_action() {
-    local item="$1"
-    local action="$2"
-
-    local item_conf="./items/$item/item.conf"
-    if [[ ! -f "$item_conf" ]]; then
-        log_error "Item '$item' not found"
-        return 1
-    fi
-
-    source "$item_conf"
-
-    if declare -F "$action" > /dev/null; then
-        "$action"
-        if [ $? -ne 0 ]; then
-            log_error "Action $action failed"
-        fi
-    else
-        log_error "Action '$action' not defined in item '$item'"
-    fi
-}
-
 function show_all_items() {
     DIR="items/"
 
