@@ -1,0 +1,85 @@
+format = """
+$directory\
+$git_branch\
+$git_status\
+$python\n\
+$character"""
+
+add_newline = false
+palette = 'colors'
+
+[palettes.colors]
+overlay = '#1b2122'
+love = '#ffb4ab'
+gold = '#b2cbd1'
+rose = '#bdc5eb'
+pine = '#83d2e4'
+foam = '#334a50'
+iris = '#bfc8cb'
+color1 = '#83d2e4'
+color2 = '#00363f'
+color3 = '#bfc8cb'
+color4 = '#1b2122'
+color5 = '#00363f'
+color6 = '#0e1416'
+color7 = '#0e1416'
+color8 = '#83d2e4'
+color9 = '#bdc5eb'
+
+[character]
+# success_symbol = "[󰀘](fg:foam)"
+# error_symbol = "[󰀘](fg:love)"
+# vimcmd_symbol = "[❮](fg:iris)"
+
+success_symbol = "[❯](fg:color8)"
+error_symbol = "[❯](fg:love)"
+vimcmd_symbol = "[❮](fg:iris)"
+
+[directory]
+truncate_to_repo=false
+# format = "[](fg:overlay)[󰧱 $path]($style)[](fg:overlay) "
+format = "[󰧱 $path ]($style)"
+style = "fg:color8"
+# truncation_length = 3
+# truncation_symbol = "…/"
+
+
+[directory.substitutions]
+Documents = "󰈙"
+Downloads = " "
+Music = " "
+Pictures = " "
+
+
+[git_branch]
+format = "[$symbol $branch]($style) "
+style = "fg:color1"
+symbol = " "
+
+
+[git_status]
+disabled = false
+style = "fg:love"
+format = '([$all_status$ahead_behind]($style))'
+# up_to_date = '[ ✓ ](fg:iris)'
+untracked = '[?\($count\)](fg:gold)'
+stashed = '[\$](fg:iris)'
+modified = '[ \($count\)](fg:gold)'
+renamed = '[»\($count\)](fg:iris)'
+deleted = '[✘\($count\)](style)'
+staged = '[++\($count\)](fg:gold)'
+ahead = '[⇡\(${count}\)](fg:foam)'
+diverged = '⇕[\[](fg:iris)[⇡\(${ahead_count}\)](fg:foam)[⇣\(${behind_count}\)](fg:rose)[\]](fg:iris)'
+behind = '[⇣\(${count}\)](fg:rose)'
+
+[python]
+format = "[$virtualenv]($style) "
+disabled = false
+symbol = ' '
+style = "fg:pine"
+
+[conda]
+style = "fg:pine"
+format = "[$symbol$environment]($style) "
+disabled = false
+symbol = '🅒 '

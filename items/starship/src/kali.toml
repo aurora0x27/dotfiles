@@ -14,58 +14,64 @@
 # unset prompt_symbol
 # ---------------------------- Kali Prompt--------------------------------
 
-# ┌──(venv)-(username@hostname)─[~]-<branch x>↑
-# └─$                                                   --INSERT--
+# Kali prompt improved
+# ┌──(venv)-(username@hostname)─[~]-<branch* 114+10^514- x!> ↑
+# └─$                                               --INSERT--
 
 format = '''
 [┌─${custom.virtual}─\($username[@](blue bold)$hostname\)─\[${custom.directory}\]$git_branch$git_status](green)
 [└─](green)[\$ ](blue bold)'''
 
+# Vi mode, for zsh/fish
 right_format = """
 $character\
 """
 
 [username]
 show_always = true
-format = '[$user]($style)'
-style_user = "blue bold"
+format      = '[$user]($style)'
+style_user  = "blue bold"
 
 [hostname]
 ssh_only = false
 format = "[$hostname]($style)"
-style = "blue bold"
+style  = "blue bold"
 
 [git_branch]
 format = '─<[$branch]($style)'
-style = 'blue bold'
+style  = 'blue bold'
+
 
 [git_status]
-format = "[$modified$untracked$conflict]($style)> [$ahead_behind](purple bold)"
-style = "bold red"
-untracked = "x"
-modified = "*"
+format     = "[$modified]($style)( $staged$renamed$deleted)([ $untracked$conflict]($style))>[$ahead_behind](purple bold)"
+style      = "bold red"
+untracked  = "x"
+modified   = "*"
 conflicted = "!"
-ahead = '↑'
-diverged = '↕'
-behind = '↓'
+staged     = "[+$count](green)"
+renamed    = "[^$count](yellow)"
+deleted    = "[-$count](red)"
+ahead      = " ↑"
+diverged   = " ↕"
+behind     = " ↓"
 
 [custom.virtual]
 command = 'basename $VIRTUAL_ENV'
-format = '─\([$output]($style)\)'
-style = 'green'
-when = 'test -n "$VIRTUAL_ENV"'
+format  = '─\([$output]($style)\)'
+style   = 'green'
+when    = 'test -n "$VIRTUAL_ENV"'
 
 [custom.directory]
 command = '~/.config/starship/scripts/path.sh'
-format = '[$output]($style)'
-style = "bold"
-when = true
+format  = '[$output]($style)'
+style   = "bold"
+when    = true
 
 [character]
-format = "$symbol"
-success_symbol = "[--INSERT--](bold green)"
-error_symbol = "[--INSERT--](bold red)"
-vimcmd_symbol = "[--NORMAL--](bold blue)"
-vimcmd_replace_one_symbol = "[--REPLACE ONE--](bold purple)"
-vimcmd_replace_symbol = "[--REPLACE--](bold purple)"
-vimcmd_visual_symbol = "[--VISUAL--](bold yellow)"
+format                    = "$symbol"
+success_symbol            = "[--INSERT--](green)"
+error_symbol              = "[--INSERT--](red)"
+vimcmd_symbol             = "[--NORMAL--](blue)"
+vimcmd_replace_one_symbol = "[--REPLACE ONE--](purple)"
+vimcmd_replace_symbol     = "[--REPLACE--](purple)"
+vimcmd_visual_symbol      = "[--VISUAL--](yellow)"
