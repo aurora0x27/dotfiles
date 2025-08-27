@@ -292,22 +292,6 @@ while [[ $# -gt 0 ]]; do
             exit 0
             ;;
 
-        -I)
-            if [[ -z "${2:-}" || "${2:-}" == -* ]] then
-                log_error "Missing or invalid item name after '-I'"
-                exit 1
-            fi
-            item="$2"
-            target_list+=("$item")
-            shift 2
-            ;;
-
-        -I*)
-            item="${1#-I}"
-            target_list+=("$item")
-            shift
-            ;;
-
         --item=*)
             val="${1#--item=}"
             if [[ "$val" =~ ^\{.*\}$ ]]; then
@@ -363,20 +347,6 @@ while [[ $# -gt 0 ]]; do
 
         --check-dependency)
             check_dep=1
-            shift
-            ;;
-
-        --new-item=*)
-            val="${1#--new-item=}"
-            if [[ "$val" == \{*} ]]; then
-                # Brace expansion: eval hack
-                expanded_items=$(eval echo "$val")
-                for item in $expanded_items; do
-                    item_new $item
-                done
-            else
-                item_new $val
-            fi
             shift
             ;;
 
