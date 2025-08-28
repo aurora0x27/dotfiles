@@ -196,6 +196,17 @@ declare -A presets
 # Script begin
 set -uo pipefail
 
+if [[ ! -t 1 ]]; then
+    RED=''
+    GREEN=''
+    YELLOW=''
+    CYAN=''
+    MAGENTA=''
+    BLUE=''
+    BOLD=''
+    RESET=''
+fi
+
 if [ $# -eq 0 ]; then
     print_help
     exit 0
