@@ -34,8 +34,8 @@ style_user  = "blue bold"
 
 [hostname]
 ssh_only = false
-format = "[$hostname]($style)"
-style  = "blue bold"
+format   = "[$hostname]($style)"
+style    = "blue bold"
 
 [git_branch]
 format = '─<[$branch]($style)'
