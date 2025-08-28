@@ -20,7 +20,7 @@ export OSH=$HOME/.oh-my-bash
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-bash is loaded.
 # OSH_THEME="font"
-OSH_THEME="nekolight"
+# OSH_THEME="nekolight"
 
 # If you set OSH_THEME to "random", you can ignore themes you don't like.
 # OMB_THEME_RANDOM_IGNORED=("powerbash10k" "wanelo")
@@ -94,28 +94,29 @@ OMB_USE_SUDO=false
 # Custom completions may be added to ~/.oh-my-bash/custom/completions/
 # Example format: completions=(ssh git bundler gem pip pip3)
 # Add wisely, as too many completions slow down shell startup.
-# completions=(
-#   git
-#   composer
-#   ssh
-# )
+completions=(
+    git
+    composer
+    ssh
+)
 
 # Which aliases would you like to load? (aliases can be found in ~/.oh-my-bash/aliases/*)
 # Custom aliases may be added to ~/.oh-my-bash/custom/aliases/
 # Example format: aliases=(vagrant composer git-avh)
 # Add wisely, as too many aliases slow down shell startup.
 aliases=(
-  general
+    general
 )
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-bash/plugins/*)
 # Custom plugins may be added to ~/.oh-my-bash/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# plugins=(
-#   git
-#   bashmarks
-# )
+plugins=(
+    git
+    bashmarks
+    fzf
+)
 
 # Which plugins would you like to conditionally load? (plugins can be found in ~/.oh-my-bash/plugins/*)
 # Custom plugins may be added to ~/.oh-my-bash/custom/plugins/
@@ -157,6 +158,10 @@ if [[ ! -d $BASH_CACHE_DIR ]]; then
 	mkdir $BASH_CACHE_DIR
 fi
 
+export STARSHIP_CONFIG=~/.config/starship/thirdwinter.toml
+
+[[ -f $STARSHIP_CONFIG || -L $STARSHIP_CONFIG ]] && eval "$(starship init bash)" || echo "Please install starship to enable the theme"
+
 source "$OSH"/oh-my-bash.sh
 
 unalias ll
@@ -166,17 +171,18 @@ alias ll="ls -hl"
 alias l="ls -al"
 alias vi="nvim"
 alias bash-config="nvim ~/.bashrc && source ~/.bashrc"
-
-alias docker-start="sudo systemctl start docker.socket && sudo systemctl status docker.socket "
-alias docker-status="systemctl status docker.socket"
-alias docker-stop="sudo systemctl stop docker.socket && sudo systemctl status docker.socket"
-alias doc-on="source /home/aurora/Applications/venvs/mkdocs/bin/activate"
+alias cls="clear"
+# alias docker-start="sudo systemctl start docker.socket && sudo systemctl status docker.socket "
+# alias docker-status="systemctl status docker.socket"
+# alias docker-stop="sudo systemctl stop docker.socket && sudo systemctl status docker.socket"
 alias proxy-on="export ALL_PROXY=\"socks5://127.0.0.1:2080\""
 alias proxy-off="unset ALL_PROXY"
-alias conda-on="source /opt/anaconda/bin/activate"
 
+function proxy-status() {
+    [[ -n ${ALL_PROXY} ]] && echo "ALL_PROXY: $ALL_PROXY" || echo "No proxy is on"
+}
+
+export EDITOR=nvim
 export XMAKE_THEME=catppuccin_mocha
 
 HISTTIMEFORMAT='yyyy-mm-dd'
-
-# eval "$(direnv hook bash)"
