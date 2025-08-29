@@ -7,14 +7,11 @@
 # available, otherwise 'xterm-256color' is used.
 TERM = "xterm-256color"
 
-[terminal]
-
-shell = "/usr/bin/zsh"
+[terminal.shell]
+program = "/usr/bin/zsh"
 
 [window]
-
 opacity = 0.9
-
 padding.x = 2
 padding.y = 2
 
@@ -61,3 +58,6 @@ import = [
 # Tip: for inspiration, look for values in the source code files of your favorite VS Code themes, and use the color picker in
 # Google to test colors before setting a value, or simply using an editor such as VS Code where colors are displayed in a 
 # small box when a HEX is detected by the editor.
+
+[terminal]
+osc52 = 'CopyPaste'
