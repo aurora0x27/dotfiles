@@ -308,6 +308,20 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
 
+        --id=*)
+            sys_id="${1#--id=}"
+            shift
+            ;;
+
+        --id)
+            if [[ -z "${2:-}" || "${2:-}" == -* ]] then
+                log_error "Missing or invalid item name after '--id'"
+                exit 1
+            fi
+            sys_id="$2"
+            shift 2
+            ;;
+
         --exclude=*)
             val="${1#--exclude=}"
             if [[ "$val" =~ ^\{.*\}$ ]]; then
@@ -419,6 +433,7 @@ if [[ "$verbose" == 1 ]]; then
     log_info "Global Value: target_list = [${target_list[@]:-}]"
     log_info "Global Value: exclude_list = [${exclude_list[@]:-}]"
     log_info "Global Value: action = $action"
+    log_info "Global Value: sys_id = $sys_id"
     echo ""
 fi
 
