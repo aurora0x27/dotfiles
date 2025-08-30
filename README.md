@@ -45,3 +45,7 @@
 - yazi        
 
 - zsh         
+
+## TODO
+
+- [ ] Improve multi-dependency items
