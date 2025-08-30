@@ -48,4 +48,4 @@
 
 ## TODO
 
-- [ ] Improve multi-dependency items
+- [x] Improve multi-dependency items
