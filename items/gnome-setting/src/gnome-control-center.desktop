@@ -1,0 +1,13 @@
+[Desktop Entry]
+Categories=System;
+Comment=Gnome Control Center
+Exec=/home/aurora/.local/share/scripts/settings.sh
+GenericName=SystemSettings
+Icon=org.gnome.Settings
+Name=Settings-Niri
+NoDisplay=false
+StartupNotify=true
+Terminal=false
+TerminalOptions=
+Type=Application
+Version=1.0
