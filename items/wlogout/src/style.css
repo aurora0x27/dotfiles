@@ -1,0 +1,88 @@
+/* #CDD6F4 */
+/* #CDD6F4 */
+/* #C7D4EF */
+
+* {
+  font-family: JetBrains Mono;
+  background-image: none;
+  box-shadow: none;
+}
+
+window {
+  background-color: rgba(12, 12, 12, 0.4);
+}
+
+button {
+  margin: 15px;
+  border-radius: 50px;
+  color: #CDD6F4;
+  background-color: rgba(0, 0, 12, 0.1);
+  background-repeat: no-repeat;
+  background-position: 50% 40%;
+  background-size: 20%;
+  font-weight: normal;
+  font-size: 1.6rem;
+  padding-bottom: 40;
+}
+
+/* button:focus, */
+/* button:active, */
+button:focus {
+  transition-duration: 300ms;
+  color: #7DCFFF;
+}
+
+button:hover {
+  transition-duration: 300ms;
+  background-color: #CDD6F4;
+  outline-style: none;
+  color: #11111B;
+}
+
+#back {
+  background-image: image(url("./assets/back-light.svg"));
+}
+
+#back:hover {
+  background-image: image(url("./assets/back-dark.svg"));
+}
+
+#windows {
+  background-image: image(url("./assets/windows-light.svg"));
+}
+
+#windows:hover {
+  background-image: image(url("./assets/windows-dark.svg"));
+}
+
+#exit {
+  background-image: image(url("./assets/exit-light.svg"));
+}
+
+#exit:hover {
+  background-image: image(url("./assets/exit-dark.svg"));
+}
+
+#lock {
+  background-image: image(url("./assets/lock-light.svg"));
+}
+
+#lock:hover {
+  background-image: image(url("./assets/lock-dark.svg"));
+}
+
+#shutdown {
+  background-image: image(url("./assets/shutdown-light.svg"));
+}
+
+#shutdown:hover {
+  background-image: image(url("./assets/shutdown-dark.svg"));
+}
+
+#reboot {
+  background-image: image(url("./assets/reboot-light.svg"));
+}
+
+#reboot:hover {
+  background-image: image(url("./assets/reboot-dark.svg"));
+}

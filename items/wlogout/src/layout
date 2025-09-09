@@ -1,0 +1,36 @@
+{
+    "label" : "back",
+    "action" : "",
+    "text" : "[B]ack",
+    "keybind" : "b"
+}
+{
+    "label" : "shutdown",
+    "action" : "systemctl poweroff",
+    "text" : "[S]hutdown",
+    "keybind" : "s"
+}
+{
+    "label" : "windows",
+    "action" : "systemctl reboot --boot-loader-entry=windows.conf",
+    "text" : "[W]indows",
+    "keybind" : "w"
+}
+{
+    "label" : "lock",
+    "action" : "hyprlock",
+    "text" : "[L]ock",
+    "keybind" : "l"
+}
+{
+    "label" : "exit",
+    "action" : "niri msg action quit --skip-confirmation",
+    "text" : "[E]xit",
+    "keybind" : "e"
+}
+{
+    "label" : "reboot",
+    "action" : "systemctl reboot",
+    "text" : "[R]eboot",
+    "keybind" : "r"
+}
