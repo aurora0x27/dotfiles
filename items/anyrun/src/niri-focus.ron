@@ -1,0 +1,4 @@
+// <Anyrun config dir>/niri-focus.ron
+Config(
+    max_entries: 5,
+)

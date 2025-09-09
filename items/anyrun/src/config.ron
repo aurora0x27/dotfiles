@@ -12,10 +12,7 @@ Config(
     max_entries: None,
 
     plugins: [
-        "libhyprwin.so",
         "libapplications.so",
-        "libbetter_shell.so",
-        "libdictionary.so",
         "libwebsearch.so",
     ],
 )

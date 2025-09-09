@@ -1,36 +1,39 @@
 * {
-  all: unset;
-  font-size: 1.3rem;
-  color: #E0F3FF;
+    font-size: 1.3rem;
+    color: #E0F3FF;
 }
+
+/*window {
+    background-color: rgba(30, 30, 46, 0.85);
+}*/
 
 #window,
 #match,
 #entry,
 #plugin,
 #main {
-  background: transparent;
+    background: transparent;
 }
 
 #match.activatable {
-  border-radius: 5px;
-  padding: 0.3rem 0.9rem;
-  margin-top: 0.01rem;
+    border-radius: 5px;
+    padding: 0.3rem 0.9rem;
+    margin-top: 0.01rem;
 }
 
 #match.activatable:first-child {
-  margin-top: 0.7rem;
+    margin-top: 0.7rem;
 }
 
 #match.activatable:last-child {
-  margin-bottom: 0.6rem;
+    margin-bottom: 0.6rem;
 }
 
 #plugin:hover #match.activatable {
-  border-radius: 10px;
-  padding: 0.3rem;
-  margin-top: 0.01rem;
-  margin-bottom: 0;
+    border-radius: 10px;
+    padding: 0.3rem;
+    margin-top: 0.01rem;
+    margin-bottom: 0;
 }
 
 #match:selected,
