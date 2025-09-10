@@ -106,8 +106,9 @@ output "eDP-1" {
 
 cursor {
     // xcursor-theme "MikuComplete"
-    xcursor-theme "MikuComplete"
-    xcursor-size 48
+    // xcursor-size 48
+    xcursor-theme "Bibata-Modern-Classic"
+    xcursor-size 20
 }
 
 // Settings that influence how windows are positioned and sized.
