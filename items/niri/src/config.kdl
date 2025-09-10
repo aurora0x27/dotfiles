@@ -349,6 +349,25 @@ window-rule {
     open-floating true
 }
 
+// window-rule {
+//     match app-id="^swayimg.*"
+// 
+//     open-floating true
+// 
+//     default-column-width  { proportion 1.0; }
+//     default-window-height { proportion 1.0; }
+//     
+//     focus-ring {
+//         off
+//     }
+// }
+
+window-rule {
+    match title="^imv.*"
+
+    open-floating true
+}
+
 window-rule {
     match title="^群聊的聊天记录$"
 
