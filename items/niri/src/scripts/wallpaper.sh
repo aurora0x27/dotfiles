@@ -1,7 +1,7 @@
 #! /usr/bin/bash
 
-CONFIG_FILE=$HOME/.config/wallpaper.conf
-WP="$HOME/.config/wallpapers/00.jpg"
+CONFIG_FILE=$HOME/.config/niri/wallpaper.conf
+WP="$HOME/.config/niri/wallpapers/yuki.jpg"
 BLUR_STREGTH=20
 TRANSITION=simple
 CACHE_DIR="$HOME/.cache/wallpaper"

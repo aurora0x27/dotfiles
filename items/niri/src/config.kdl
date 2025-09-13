@@ -281,7 +281,7 @@ spawn-at-startup "sh" "-c" "wl-paste --type text --watch cliphist store"
 
 spawn-at-startup "sh" "-c" "sleep 1 && fcitx5 --replace -d"
 spawn-at-startup "sh" "-c" "systemctl --user start plasma-polkit-agent.service"
-// spawn-at-startup "sh" "-c" "sleep 2 && mihomo-party"
+spawn-at-startup "sh" "-c" "darkman run"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
 // If the client will specifically ask for CSD, the request will be honored.
@@ -347,6 +347,23 @@ window-rule {
     match title="^Alacritty@float$"
 
     open-floating true
+}
+
+window-rule {
+    match app-id="^org.pulseaudio.pavucontrol$"
+
+    open-floating true
+    default-column-width { fixed 720; }
+    default-window-height { fixed 480; }
+    default-floating-position x=20 y=20 relative-to="top-right"
+}
+
+window-rule {
+    match title="^Fcitx Configuration$" app-id="^org.fcitx.fcitx5-config-qt$"
+    open-floating true
+    default-column-width { fixed 950; }
+    default-window-height { fixed 490; }
+    default-floating-position x=20 y=20 relative-to="top-right"
 }
 
 // window-rule {
@@ -473,6 +490,8 @@ binds {
     XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
     XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+    XF86MonBrightnessUp   allow-when-locked=true { spawn "brightnessctl" "s" "5%+"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "s" "5%-"; }
 
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
@@ -719,4 +738,8 @@ binds {
 hotkey-overlay {
     hide-not-bound
     skip-at-startup
+}
+
+debug {
+    honor-xdg-activation-with-invalid-serial
 }
