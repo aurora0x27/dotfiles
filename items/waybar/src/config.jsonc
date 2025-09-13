@@ -4,8 +4,8 @@
     "modules-center": ["clock"],
     "modules-right": ["tray", "custom/swaync", "custom/battery", "pulseaudio"],
     "pulseaudio": {
-    	"format": "[Vol {volume}%]",
-        "format-muted": "[Vol {volume}% x]",
+    	"format": "[  {volume}%]",
+        "format-muted": "[  {volume}%]",
 		"on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
 		"on-click-right": "pavucontrol"
     },
@@ -60,17 +60,17 @@
         "tooltip":true,     
         "format": "{icon}",
         "format-icons": {
-            "notification": "<span foreground='#f9e2af'>[Notice<span foreground='#f38ba8'>*</span>]</span>",
-            "none": "<span foreground='#f9e2af'>[Notice]</span>",
+            "notification": "<span foreground='#f9e2af'> <span foreground='#f38ba8'>*</span></span>",
+            "none": "<span foreground='#f9e2af'></span>",
 
-            "dnd-notification": "<span foreground='#89b4fa'>[Notice<span foreground='#f38ba8'>*</span>]</span>",
-            "dnd-none": "<span foreground='#89b4fa'>[Notice]</span>",
+            "dnd-notification": "<span foreground='#89b4fa'> <span foreground='#f38ba8'>*</span> </span>",
+            "dnd-none": "<span foreground='#89b4fa'></span>",
 
-            "inhibited-notification": "<span foreground='#f9e2af'>[! Notice<span foreground='#f38ba8'>*</span>]</span>",
-            "inhibited-none": "<span foreground='#f9e2af'>[! Notice]</span>",
+            "inhibited-notification": "<span foreground='#f9e2af'><span foreground='#f38ba8'>*</span></span>",
+            "inhibited-none": "<span foreground='#f9e2af'></span>",
 
-            "dnd-inhibited-notification": "<span foreground='#89b4fa'>! Notice</span><span foreground='#f38ba8'>*</span>]",
-            "dnd-inhibited-none": "<span foreground='#89b4fa'>[! Notice]</span>"
+            "dnd-inhibited-notification": "<span foreground='#89b4fa'> </span><span foreground='#f38ba8'>*</span>]",
+            "dnd-inhibited-none": "<span foreground='#89b4fa'></span>"
         },
         "return-type": "json",
         "exec-if": "which swaync-client",

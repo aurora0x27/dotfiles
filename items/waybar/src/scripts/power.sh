@@ -8,7 +8,7 @@ else
     color_class="normal"
 fi
 if [ "$online" -eq 1 ]; then 
-    echo {\"text\": \"[Power ${cap}% *AC]\", \"class\": \"$color_class\"}; 
+    echo {\"text\": \"[󱐋 ${cap}% *󰚥]\", \"class\": \"$color_class\"}; 
 else
-    echo {\"text\": \"[Power ${cap}%]\", \"class\": \"$color_class\"};
+    echo {\"text\": \"[󱐋 ${cap}%]\", \"class\": \"$color_class\"};
 fi
