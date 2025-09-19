@@ -1,51 +1,47 @@
 # My dotfiles collection on MacOS and Linux
 
-> [!WARNING]
->
-> The dotfiles collection is still in development, not usable
+## Show Case
+
+![Niri Desktop](./docs/img/display.png)
 
 ## Items
 
-- alacritty   
-
-- bash        
-
-- btop        
-
-- fastfetch   
-
+- alacritty
+- anyrun
+- bash
+- btop
+- discord
+- fastfetch
+- fcitx5-theme
 - fish
-
-**I don't use fish as my default shell, so it's not well configured**
-
-- ghostty     
-
-- hyprland    
-
-**Hyprland config is in development**
-
-- karabiner   
-
-- kitty       
-
-- lsd         
-
-- nvim        
-
-- nvim.vscode 
-
-- rofi        
-
-- tmux        
-
-- waybar      
-
-- wezterm     
-
-- yazi        
-
-- zsh         
+- ghostty
+- gimp-patch
+- gnome-setting
+- gtk-theme
+- hyprland
+- hyprlock
+- imv
+- karabiner
+- kitty
+- linuxqq
+- lsd
+- matrix
+- mpv
+- neovide
+- niri
+- nvim
+- nvim.vscode
+- qt-theme
+- quickshell
+- rofi
+- starship
+- swaync
+- tmux
+- waybar
+- wezterm
+- wlogout
+- yazi
+- zathura
+- zsh
 
 ## TODO
-
-- [x] Improve multi-dependency items
