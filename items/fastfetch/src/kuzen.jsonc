@@ -1,0 +1,96 @@
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+  "logo": {
+    "source": "arch2",
+    "type": "auto",
+    "padding": {
+      "top": 0,
+      "left": 0,
+      "right": 4
+    },
+    "position": "left"
+  },
+  "display": {
+    "separator": "  "
+  },
+  "modules": [
+    {
+      "key": "╭───────────╮",
+      "type": "custom"
+    },
+    {
+      "key": "│ {#32} user    {#keys}│",
+      "type": "title",
+      "format": "sorair"
+    },
+    {
+      "key": "│ {#33}{icon} distro  {#keys}│",
+      "type": "os"
+    },
+    {
+      "key": "│ {#34} kernel  {#keys}│",
+      "type": "kernel"
+    },
+    {
+      "key": "│ {#35} shell   {#keys}│",
+      "type": "shell"
+    },
+    {
+      "key": "├───────────┤",
+      "type": "custom"
+    },
+    {
+      "key": "│ {#36}󰇄 desktop {#keys}│",
+      "type": "de"
+    },
+    {
+      "key": "│ {#35} term    {#keys}│",
+      "type": "terminal"
+    },
+    {
+      "key": "│ {#39} font    {#keys}│",
+      "type": "terminalfont"
+    },
+    {
+      "key": "├───────────┤",
+      "type": "custom"
+    },
+    {
+      "key": "│ {#32}󰍛 cpu     {#keys}│",
+      "type": "cpu",
+      "showPeCoreCount": true
+    },
+    {
+      "key": "│ {#33}󰾲 gpu     {#keys}│",
+      "type": "gpu",
+      "detectionMethod": "pci"
+    },
+    {
+      "key": "│ {#34}󰉉 disk    {#keys}│",
+      "type": "disk",
+      "folders": "/"
+    },
+    {
+      "key": "│ {#35} memory  {#keys}│",
+      "type": "memory"
+    },
+    {
+      "key": "│ {#36}󰩟 network {#keys}│",
+      "type": "localip",
+      "format": "{ipv4} ({ifname})"
+    },
+    {
+      "key": "├───────────┤",
+      "type": "custom"
+    },
+    {
+      "key": "│ {#39} colors  {#keys}│",
+      "type": "colors",
+      "symbol": "circle"
+    },
+    {
+      "key": "╰───────────╯",
+      "type": "custom"
+    }
+  ]
+}
