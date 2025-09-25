@@ -7,12 +7,12 @@ local config = {
 	-- font settings
 	font_size = 10,
 	-- font = wezterm.font_with_fallback{"JetBrainsMonoNL Nerd Font Mono", "LXGWWenKaiMonoLite-Regular"},
-	font = wezterm.font_with_fallback({
-		"JetBrainsMonoNL Nerd Font",
-		"Symbols Nerd Font Mono",
-		"LXGWWenKaiMonoLite-Regular",
-	}),
-	-- font = wezterm.font("Maple Mono NF CN", { weight = "Regular", stretch = "Normal", style = "Normal" }),
+	-- font = wezterm.font_with_fallback({
+	-- 	"JetBrainsMonoNL Nerd Font",
+	-- 	"Symbols Nerd Font Mono",
+	-- 	"LXGWWenKaiMonoLite-Regular",
+	-- }),
+	font = wezterm.font("Maple Mono NF CN", { weight = "Regular", stretch = "Normal", style = "Normal" }),
 	adjust_window_size_when_changing_font_size = false,
 
 	color_scheme = "Catppuccin Mocha",
