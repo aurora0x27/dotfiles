@@ -43,7 +43,7 @@ input {
 
     mouse {
         // off
-        natural-scroll
+        // natural-scroll
         accel-speed 0.4
         // accel-profile "flat"
         // scroll-method "no-scroll"
@@ -105,10 +105,10 @@ output "eDP-1" {
 }
 
 cursor {
-    // xcursor-theme "MikuComplete"
-    // xcursor-size 48
-    xcursor-theme "Bibata-Modern-Classic"
-    xcursor-size 20
+    xcursor-theme "MikuComplete"
+    xcursor-size 32
+    // xcursor-theme "Bibata-Modern-Classic"
+    // xcursor-size 20
 }
 
 // Settings that influence how windows are positioned and sized.
@@ -116,7 +116,7 @@ cursor {
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 8
+    gaps 6
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -440,7 +440,7 @@ window-rule {
 }
 
 window-rule {
-    match title="^群聊的聊天记录$"
+    match title=".*的聊天记录$"
 
     open-floating true
 }
