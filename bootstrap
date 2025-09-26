@@ -89,7 +89,7 @@ item_new() {
     echo "#!/usr/bin/env bash"                                         >> "items/$item/item.conf"
     echo ""                                                            >> "items/$item/item.conf"
 
-    echo "# Check the dependency return true if installed dependency"  >> "items/$item/item.conf"
+    echo "# Check the dependency return false if installed dependency" >> "items/$item/item.conf"
     echo "function check_dep() {"                                      >> "items/$item/item.conf"
     echo "    return 0"                                                >> "items/$item/item.conf"
     echo "}"                                                           >> "items/$item/item.conf"
@@ -107,7 +107,7 @@ item_new() {
     echo "}"                                                           >> "items/$item/item.conf"
     echo ""                                                            >> "items/$item/item.conf"
 
-    echo "# Check if the item is installed, return true if installed"  >> "items/$item/item.conf"
+    echo "# Check if the item is installed, return false if installed" >> "items/$item/item.conf"
     echo "function check() {"                                          >> "items/$item/item.conf"
     echo "    return 0"                                                >> "items/$item/item.conf"
     echo "}"                                                           >> "items/$item/item.conf"
@@ -166,10 +166,10 @@ function show_status() {
             # Check if check function is defined
             if declare -f check >/dev/null 2>&1; then
                 check
-                result=$?
-                if [[ $result -eq 1 ]]; then
+                ret=$?
+                if [[ $ret -eq 0 ]]; then
                     color_echo GREEN "[+] $(basename "$item_dir")"
-                elif [[ $result -eq 0 ]]; then
+                elif [[ $ret -eq 1 ]]; then
                     color_echo GREEN "[ ] $(basename "$item_dir")"
                 else
                     color_echo YELLOW "[?] $(basename "$item_dir") function check must return 0 or 1"
@@ -224,9 +224,9 @@ function run_install() {
                 if [[ "$check_dep" == 1 || "$install_dep" == 1 ]]; then
                     if [[ "$has_check_dep" == 1 ]]; then
                         check_dep
-                        has_dep=$?
+                        ret=$?
                         if [[ $verbose == 1 ]]; then
-                            if [[ $has_dep == 1 ]]; then
+                            if [[ $ret -eq 0 ]]; then
                                 prompt="$GREEN ok"
                             else
                                 prompt="$RED need install"
@@ -266,8 +266,8 @@ function run_install() {
 
                 if [[ "$has_check" == 1 ]]; then
                     check
-                    result=$?
-                    if [[ $result == 1 ]]; then
+                    ret=$?
+                    if [[ $ret -eq 0 ]]; then
                         if [[ $dry_run != 1 ]]; then
                             log_warn "$target is installed"
                             while true; do
@@ -298,9 +298,9 @@ function run_install() {
                     exit 1
                 fi
             )
+            result=$?
             if [[ $dry_run != 1 ]]; then
-                result=$?
-                if [[ $result == 0 ]]; then
+                if [[ $result -eq 0 ]]; then
                     prompt="$GREEN ok"
                 else
                     prompt="$RED failed"
@@ -343,7 +343,7 @@ function run_uninstall() {
                     check
                     is_installed=$?
                     if [[ $verbose == 1 ]]; then
-                        if [[ $is_installed -ne 0 ]]; then
+                        if [[ $is_installed -eq 0 ]]; then
                             prompt="$GREEN installed"
                         else
                             prompt="$YELLOW not installed"
@@ -355,7 +355,7 @@ function run_uninstall() {
                     exit 1
                 fi
 
-                if [[ "$is_installed" == 1 ]]; then
+                if [[ $is_installed -eq 0 ]]; then
                     if [[ "$has_uninstall" == 1 ]]; then
                         uninstall
                         if [[ $dry_run != 1 ]]; then
