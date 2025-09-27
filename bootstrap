@@ -138,10 +138,8 @@ function print_help() {
     color_echo GREEN "      --id=<sys-id>               Assign sys id to identify system(cover the config)"
     color_echo GREEN "-n    --dry-run                   Print the steps to be executed"
     color_echo GREEN "-v    --verbose                   Print the steps while executing"
-    color_echo GREEN "-l    --list                      List all the items"
     color_echo GREEN "-ls   --list-status               List all the statuses of items"
     color_echo GREEN "-h    --help                      Print the help menu"
-    color_echo GREEN "-d    --debug                     Set debug mode"
     color_echo GREEN "-c    --check-dep                 Check the dependency of items"
     color_echo GREEN "-D    --install-dep               Install the dependency of items"
 }
