@@ -1,9 +1,9 @@
 BEGIN {
     shell = "/bin/zsh"
     opacity = 0.95
-    font_family_normal = "Maple Mono NF CN"
-    font_family_bold = "Maple Mono NF CN"
-    font_family_italic = "Maple Mono NF CN"
-    font_family_bold_italic = "Maple Mono NF CN"
+    font_family_normal       = "ComicCode Nerd Font Medium"
+    font_family_bold         = "ComicCode Nerd Font Medium"
+    font_family_italic       = "ComicCode Nerd Font Medium"
+    font_family_bold_italic  = "ComicCode Nerd Font Medium"
     font_size = 9.5
 }
