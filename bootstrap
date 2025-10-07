@@ -220,9 +220,11 @@ function run_install() {
                 has_check=$(declare -f check >/dev/null 2>&1 && echo 1 || echo 0)
 
                 if [[ "$check_dep" == 1 || "$install_dep" == 1 ]]; then
+                    has_dep=0
                     if [[ "$has_check_dep" == 1 ]]; then
                         check_dep
                         ret=$?
+                        has_dep=$(( ! $ret ))
                         if [[ $verbose == 1 ]]; then
                             if [[ $ret -eq 0 ]]; then
                                 prompt="$GREEN ok"
@@ -237,7 +239,7 @@ function run_install() {
                     fi
 
                     if [[ "$install_dep" == 1 ]]; then
-                        if [[ "${has_dep:-0}" != 1  ]]; then
+                        if [[ "${has_dep}" != 1  ]]; then
                             if [[ "$has_install_dep" == 1 ]]; then
                                 install_dep
                                 result=$?
@@ -260,7 +262,6 @@ function run_install() {
                         fi
                     fi
                 fi
-
 
                 if [[ "$has_check" == 1 ]]; then
                     check
