@@ -7,6 +7,6 @@ BEGIN {
     adjust_cell_width = "-6%"
     adjust_cell_height = "0%"
     shell = "/bin/zsh"
-    window_height = 50
-    window_width = 200
+    window_height = 45
+    window_width = 220
 }
