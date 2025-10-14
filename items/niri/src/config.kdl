@@ -282,6 +282,7 @@ spawn-at-startup "sh" "-c" "wl-paste --type image --watch cliphist store"
 spawn-at-startup "sh" "-c" "wl-paste --type text --watch cliphist store"
 
 spawn-at-startup "sh" "-c" "sleep 1 && fcitx5 --replace -d"
+spawn-at-startup "sh" "-c" "sleep 1 && mihomo-party"
 spawn-at-startup "sh" "-c" "systemctl --user start plasma-polkit-agent.service"
 spawn-at-startup "sh" "-c" "darkman run"
 
