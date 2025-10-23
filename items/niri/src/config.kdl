@@ -166,7 +166,7 @@ layout {
         off
 
         // How many logical pixels the ring extends out from the windows.
-        width 3
+        width 1
 
         // Colors can be set in a variety of ways:
         // - CSS named colors: "red"
@@ -282,7 +282,6 @@ spawn-at-startup "sh" "-c" "wl-paste --type image --watch cliphist store"
 spawn-at-startup "sh" "-c" "wl-paste --type text --watch cliphist store"
 
 spawn-at-startup "sh" "-c" "sleep 1 && fcitx5 --replace -d"
-spawn-at-startup "sh" "-c" "sleep 1 && /opt/mihomo-party/mihomo-party"
 spawn-at-startup "sh" "-c" "systemctl --user start plasma-polkit-agent.service"
 spawn-at-startup "sh" "-c" "darkman run"
 
@@ -416,6 +415,13 @@ window-rule {
     match title="^Alacritty@float$"
 
     open-floating true
+}
+
+window-rule {
+    match is-floating=true
+    focus-ring {
+        on
+    }
 }
 
 window-rule {

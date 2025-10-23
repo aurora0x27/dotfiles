@@ -4,6 +4,7 @@ CONFIG_FILE=$HOME/.config/niri/wallpaper.conf
 WP="$HOME/.config/niri/wallpapers/yuki.jpg"
 BLUR_STREGTH=20
 TRANSITION=simple
+TRANSITION_DURATION=1
 CACHE_DIR="$HOME/.cache/wallpaper"
 
 [ -f "$CONFIG_FILE" ] && source "$CONFIG_FILE"
@@ -33,6 +34,6 @@ pgrep -x swww-daemon >/dev/null || {
     sleep 1
 }
 
-swww img "$CACHE_IMG" -n wp-back --transition-type "$TRANSITION"
+swww img "$CACHE_IMG" -n wp-back --transition-type "$TRANSITION" --transition-duration "$TRANSITION_DURATION"
 sleep 1
-swww img "$WP" -n wp-front --transition-type "$TRANSITION"
+swww img "$WP" -n wp-front --transition-type "$TRANSITION" --transition-duration "$TRANSITION_DURATION"
