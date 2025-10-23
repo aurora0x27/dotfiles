@@ -1,26 +1,26 @@
 window#waybar {
-    background-color: rgba(30, 30, 46, 0.85);
-	color: #cdd6f4;
-	transition-property: background-color;
-	transition-duration: .5s;
-	border-bottom: 1px solid rgba(144, 140, 170, 0.95);
+  background-color: rgba(30, 30, 46, 0.85);
+  color: #cdd6f4;
+  transition-property: background-color;
+  transition-duration: 0.5s;
+  border-bottom: 1px solid rgba(144, 140, 170, 0.95);
 }
 
 * {
-	font-family: "LXGW WenKai Mono", "Maple Mono NF CN";
-	font-size: 12pt;
+  font-family: "Iosevka Nerd Font", "LXGW WenKai Mono", "Maple Mono NF CN";
+  font-size: 12pt;
 }
 
 #workspaces button {
-	padding-top: 4px;
-	padding-bottom: 4px;
-	padding-left: 4px;
-	padding-right: 4px;
-	background-color: transparent;
-	border-radius: 100%;
-    border: 2px transparent;
-	font-weight: 200;
-	color: #a6adc8; 
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 2px;
+  padding-right: 2px;
+  background-color: transparent;
+  border-radius: 100%;
+  border: 2px transparent;
+  font-weight: 200;
+  color: #a6adc8;
 }
 
 /*#workspaces button.urgent {
@@ -34,81 +34,80 @@ window#waybar {
 }*/
 
 #workspaces button:hover {
-    background: rgba(30, 30, 46, 0.45);
-    animation: gradient_f 20s ease-in infinite;
-    border-radius: 8px;
-    transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  background: rgba(30, 30, 46, 0.45);
+  animation: gradient_f 20s ease-in infinite;
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 }
 
 #workspaces button.focused {
-	color: #94e2d5;
-	font-weight: 600;
+  color: #94e2d5;
+  font-weight: 600;
 }
 
 label.module {
-	padding: 0 10px 0 10px;
+  padding: 0 10px 0 10px;
 }
 
 box.module button:hover {
-	box-shadow: none;
-	outline: none;
-	font-style: normal;
-	text-shadow: none;
+  box-shadow: none;
+  outline: none;
+  font-style: normal;
+  text-shadow: none;
 }
 
 #tray {
-	padding: 0px 8px 0px 8px;
+  padding: 0px 8px 0px 8px;
 }
 
 #tray menu menuitem:hover {
-	background-color: #1e1e2e;
-	color: #f5c2e7;
-	border-radius: 5px;
+  background-color: #1e1e2e;
+  color: #f5c2e7;
+  border-radius: 5px;
 }
 
 #clock {
-    color: #b4befe;
-    font-weight: 600;
+  color: #b4befe;
+  font-weight: 600;
 }
 
 menu {
-	background-color: #181825;
-	color: #cdd6f4;
-	border: 1px solid #494d64;
-	padding: 6px;
-	border-radius: 12px;
+  background-color: #181825;
+  color: #cdd6f4;
+  border: 1px solid #494d64;
+  padding: 6px;
+  border-radius: 12px;
 }
 
 #window {
-	font-weight: 600;
-    color: #f9e2af;
-	padding: 0px 8px 0px 8px;
+  font-weight: 600;
+  color: #f9e2af;
+  padding: 0px 0px 0px 8px;
 }
 #custom-battery.low {
-    color: #f38ba8;
+  color: #f38ba8;
 }
 
 #custom-battery.normal {
-    color: #a6e3a1;
+  color: #a6e3a1;
 }
 
 #memory.critical {
-    color: #f38ba8;
+  color: #f38ba8;
 }
 
 #memory {
-    color: #89b4fa;
+  color: #89b4fa;
 }
 
-
 #cpu {
-    color: #f4dbd6;
+  color: #f4dbd6;
 }
 
 #pulseaudio {
-    color: #f2cdcd;
+  color: #f2cdcd;
 }
 
 #pulseaudio.muted {
-    color: #f38ba8;
+  color: #f38ba8;
 }
