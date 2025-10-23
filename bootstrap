@@ -44,7 +44,7 @@ log_success() {
 }
 
 log_hint() {
-    echo -e "${MAGENTA}[Notice] $* ${RESET}"
+    echo -e "${MAGENTA}[HINT] $* ${RESET}"
 }
 
 log_debug() {
