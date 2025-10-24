@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+# paru -S virt-manager dnsmasq dmidecode
+
+print_help() {
+    echo "Usage: $0 <start|status|restart|stop>"
+}
+
+if [ $# -gt 1 ]; then 
+    echo "Error: No more than 2 arguments"
+    print_help
+    exit 1
+elif [ $# -eq 0 ]; then
+    print_help
+    exit 0
+fi 
+
+action="$1"
+
+case "$action" in
+    start)
+        sudo systemctl "$action" libvirtd.service libvirtd.socket
+        ;;
+    status)
+        systemctl "$action" libvirtd.service libvirtd.socket
+        ;;
+    restart)
+        sudo systemctl "$action" libvirtd.service libvirtd.socket
+        ;;
+    stop)
+        sudo systemctl "$action" libvirtd.service libvirtd.socket
+        ;;
+    *)
+        echo "Unknown action \`$action\`"
+        ;;
+esac
