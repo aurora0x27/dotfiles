@@ -1,0 +1,23 @@
+# node.dae
+node {
+    # Extra nodes
+}
+
+subscription {
+    # Fill in your subscription links here.
+    main: '<fill your link>'
+}
+
+
+group {
+    default {
+        filter: subtag(main) && !name(keyword: 'ExpireAt:') && name(keyword: '香港')
+        policy: min_moving_avg
+    }
+
+    steam {
+        filter: subtag(main) && !name(keyword: 'ExpireAt:')
+        policy: min_moving_avg
+        tcp_check_url: 'http://test.steampowered.com'
+    }
+}
