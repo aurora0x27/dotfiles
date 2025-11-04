@@ -57,7 +57,7 @@ box.module button:hover {
 }
 
 #tray {
-  padding: 0px 8px 0px 8px;
+  padding: 0px 4px 0px 4px;
 }
 
 #tray menu menuitem:hover {
@@ -82,14 +82,24 @@ menu {
 #window {
   font-weight: 600;
   color: #f9e2af;
-  padding: 0px 0px 0px 8px;
+  padding: 0px 4px 0px 4px;
 }
+
+#custom-battery {
+  padding: 0px 4px 0px 4px;
+}
+
 #custom-battery.low {
   color: #f38ba8;
 }
 
 #custom-battery.normal {
   color: #a6e3a1;
+}
+
+#backlight {
+  color: #b4befe;
+  padding: 0px 4px 0px 4px;
 }
 
 #memory.critical {
@@ -106,8 +116,10 @@ menu {
 
 #pulseaudio {
   color: #f2cdcd;
+  padding: 0px 4px 0px 4px;
 }
 
 #pulseaudio.muted {
   color: #f38ba8;
+  padding: 0px 4px 0px 4px;
 }

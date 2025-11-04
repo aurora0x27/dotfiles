@@ -2,7 +2,13 @@
   "layer": "top",
   "modules-left": ["niri/workspaces", "cpu", "memory", "niri/window"],
   "modules-center": ["clock"],
-  "modules-right": ["tray", "custom/swaync", "custom/battery", "pulseaudio"],
+  "modules-right": [
+    "tray",
+    "custom/swaync",
+    "custom/battery",
+    "backlight",
+    "pulseaudio",
+  ],
   "pulseaudio": {
     "format": "[  {volume}%]",
     "format-muted": "[  {volume}%]",
@@ -55,6 +61,14 @@
     "format": "{}",
     "return-type": "json",
     "exec": "bash -c ~/.config/waybar/scripts/power.sh",
+  },
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "[{icon} {percent}%]",
+    "format-icons": [" "],
+    "on-scroll-up": "brightnessctl s 1%+",
+    "on-scroll-down": "brightnessctl s 1%-",
+    "on-click-right": "brightnessctl s 0",
   },
   "custom/swaync": {
     "tooltip": true,
