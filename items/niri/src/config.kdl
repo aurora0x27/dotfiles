@@ -15,7 +15,7 @@ input {
             // For example:
             // layout "us,ru"
             // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
-            options "caps:swapescape"
+            options "caps:swapescape,altwin:swap_alt_win"
         }
 
         repeat-delay 400
@@ -44,7 +44,7 @@ input {
     mouse {
         // off
         // natural-scroll
-        accel-speed 0.4
+        accel-speed 0.2
         // accel-profile "flat"
         // scroll-method "no-scroll"
     }
@@ -65,6 +65,13 @@ input {
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
     // focus-follows-mouse max-scroll-amount="0%"
+}
+
+output "HDMI-A-1" {
+    mode "1920x1080@60.000"
+    scale 0.95
+    transform "normal"
+    position x=0 y=0
 }
 
 // You can configure outputs by their name, which you can find
@@ -101,7 +108,7 @@ output "eDP-1" {
     // so to put another output directly adjacent to it on the right, set its x to 1920.
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
-    position x=0 y=0
+    // position x=0 y=0
 }
 
 cursor {
@@ -282,6 +289,7 @@ spawn-at-startup "sh" "-c" "wl-paste --type image --watch cliphist store"
 spawn-at-startup "sh" "-c" "wl-paste --type text --watch cliphist store"
 
 spawn-at-startup "sh" "-c" "sleep 1 && fcitx5 --replace -d"
+spawn-at-startup "sh" "-c" "sleep 1 && /opt/sparkle/sparkle"
 spawn-at-startup "sh" "-c" "systemctl --user start plasma-polkit-agent.service"
 spawn-at-startup "sh" "-c" "darkman run"
 
@@ -369,6 +377,11 @@ window-rule {
     // You can get away with just app-id="wezterm" if you want.
     match app-id=r#"^org\.wezfurlong\.wezterm$"#
     default-column-width {}
+}
+
+window-rule {
+    match app-id="^QQ$"
+    opacity 0.95
 }
 
 window-rule {
@@ -551,7 +564,7 @@ binds {
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+B hotkey-overlay-title="Open a Browser: firefox" { spawn "firefox"; }
-    Mod+M hotkey-overlay-title="Run an Application: anyrun" { spawn "sh" "-c" "pkill -x anyrun || anyrun"; }
+    Mod+Space hotkey-overlay-title="Run an Application: anyrun" { spawn "sh" "-c" "pkill -x anyrun || anyrun"; }
     Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Mod+S hotkey-overlay-title="Open Gnome Settings" { spawn "sh" "-c" "XDG_CURRENT_DESKTOP=Gnome gnome-control-center"; }
@@ -619,6 +632,7 @@ binds {
     Mod+Shift+K     { focus-monitor-up; }
     Mod+Shift+L     { focus-monitor-right; }
 
+    // And you can also move a whole workspace to another monitor:
     Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
     Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
     Mod+Shift+Ctrl+Up    { move-column-to-monitor-up; }
@@ -642,14 +656,6 @@ binds {
 
     // Float terminal
     Mod+Return { spawn-sh "alacritty --title Alacritty@float"; }
-
-    // Alternatively, there are commands to move just a single window:
-    // Mod+Shift+Ctrl+Left  { move-window-to-monitor-left; }
-    // ...
-
-    // And you can also move a whole workspace to another monitor:
-    // Mod+Shift+Ctrl+Left  { move-workspace-to-monitor-left; }
-    // ...
 
     Mod+Page_Down      { focus-workspace-down; }
     Mod+Page_Up        { focus-workspace-up; }
