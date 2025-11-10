@@ -69,9 +69,9 @@ when    = true
 
 [character]
 format                    = "$symbol"
-success_symbol            = "[--INSERT--](green)"
-error_symbol              = "[--INSERT--](red)"
-vimcmd_symbol             = "[--NORMAL--](blue)"
+success_symbol            = "[--INSERT--](bold green)"
+error_symbol              = "[--INSERT--](bold red)"
+vimcmd_symbol             = "[--NORMAL--](bold blue)"
 vimcmd_replace_one_symbol = "[--REPLACE ONE--](purple)"
 vimcmd_replace_symbol     = "[--REPLACE--](purple)"
 vimcmd_visual_symbol      = "[--VISUAL--](yellow)"
