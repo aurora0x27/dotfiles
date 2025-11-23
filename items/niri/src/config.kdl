@@ -544,7 +544,6 @@ environment {
     XDG_SESSION_DESKTOP "Niri"
 
     QT_QPA_PLATFORMTHEME "qt6ct"
-    QT_STYLE_OVERRIDE "kvantum"
 }
 
 binds {
