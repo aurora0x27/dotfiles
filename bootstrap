@@ -401,6 +401,7 @@ function run_init() {
 
 # Script begin
 set -uo pipefail
+shopt -s nullglob
 
 if [[ ! -t 1 ]]; then
     RED=''
