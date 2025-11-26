@@ -385,7 +385,13 @@ window-rule {
 }
 
 window-rule {
-    match app-id="^firefox$"
+    match app-id="^firefox$" title="Mozilla Firefox$"
+
+    default-column-width { proportion 1.0; }
+}
+
+window-rule {
+    match app-id="^google-chrome$" title="Google Chrome$"
 
     default-column-width { proportion 1.0; }
 }
