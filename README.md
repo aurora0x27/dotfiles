@@ -17,6 +17,7 @@
 - fcitx5-theme
 - fish
 - fonts
+- foot
 - ghostty
 - gimp-patch
 - gitignore
@@ -43,6 +44,7 @@
 - swaync
 - tlrc
 - tmux
+- tuigreet
 - waybar
 - wezterm
 - wlogout
