@@ -27,13 +27,12 @@ else
     echo "$HASH" > "$CACHE_META"
 fi
 
-pgrep -x swww-daemon >/dev/null || {
+pgrep -x awww-daemon >/dev/null || {
     echo "Starting daemon"
-    swww-daemon -n wp-front &
-    swww-daemon -n wp-back &
+    awww-daemon -n wp-front &
+    awww-daemon -n wp-back &
     sleep 1
 }
 
-swww img "$CACHE_IMG" -n wp-back --transition-type "$TRANSITION" --transition-duration "$TRANSITION_DURATION"
-sleep 1
-swww img "$WP" -n wp-front --transition-type "$TRANSITION" --transition-duration "$TRANSITION_DURATION"
+awww img "$CACHE_IMG" -n wp-back --transition-type "$TRANSITION" --transition-duration "$TRANSITION_DURATION"
+awww img "$WP" -n wp-front --transition-type "$TRANSITION" --transition-duration "$TRANSITION_DURATION"
