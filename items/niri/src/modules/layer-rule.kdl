@@ -1,0 +1,8 @@
+layer-rule {
+    match namespace="wp-back$"
+    place-within-backdrop true
+}
+
+layer-rule {
+    match namespace="wp-front$"
+}

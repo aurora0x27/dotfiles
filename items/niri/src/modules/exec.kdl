@@ -1,0 +1,23 @@
+// Add lines like this to spawn processes at startup.
+// Note that running niri as a session supports xdg-desktop-autostart,
+// which may be more convenient to use.
+// See the binds section below for more spawn examples.
+
+// This line starts waybar, a commonly used bar for Wayland compositors.
+
+spawn-at-startup "sh" "-c" "xrdb -merge $HOME/.Xresources"
+
+// wallpapper
+spawn-at-startup "sh" "-c" "bash ~/.config/niri/scripts/wallpaper.sh"
+spawn-at-startup "sh" "-c" "waybar"
+spawn-at-startup "sh" "-c" "swaync"
+spawn-at-startup "sh" "-c" "nm-applet"
+
+// clipboard support
+spawn-at-startup "sh" "-c" "wl-paste --type image --watch cliphist store"
+spawn-at-startup "sh" "-c" "wl-paste --type text --watch cliphist store"
+
+spawn-at-startup "sh" "-c" "sleep 1 && fcitx5 --replace -d"
+spawn-at-startup "sh" "-c" "sleep 1 && /opt/sparkle/sparkle"
+spawn-at-startup "sh" "-c" "systemctl --user start plasma-polkit-agent.service"
+spawn-at-startup "sh" "-c" "darkman run"

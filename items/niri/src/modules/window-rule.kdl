@@ -1,0 +1,153 @@
+// Window rules let you adjust behavior for individual windows.
+// Find more information on the wiki:
+// https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
+
+// Work around WezTerm's initial configure bug
+// by setting an empty default-column-width.
+window-rule {
+    // This regular expression is intentionally made as specific as possible,
+    // since this is the default config, and we want no false positives.
+    // You can get away with just app-id="wezterm" if you want.
+    match app-id=r#"^org\.wezfurlong\.wezterm$"#
+    default-column-width {}
+}
+
+window-rule {
+    match app-id="^QQ$"
+    opacity 0.95
+}
+
+window-rule {
+    match app-id="^firefox$" title="Mozilla Firefox$"
+
+    default-column-width { proportion 1.0; }
+}
+
+window-rule {
+    match app-id="^google-chrome$" title="Google Chrome$"
+
+    default-column-width { proportion 1.0; }
+}
+
+window-rule {
+    match app-id="^firefox$" title="^Firefox - Choose User Profile$"
+
+    open-floating true
+}
+
+window-rule {
+    match title="^Floating Window - Show Me The Key$" app-id="^showmethekey-gtk$"
+
+    open-floating true
+    open-focused false
+    default-floating-position x=30 y=30 relative-to="bottom-right"
+}
+
+// clipboard history filter
+window-rule {
+    match title="^fzf-clipboard$"
+
+    open-floating true
+    default-column-width { fixed 800; }
+    default-window-height { fixed 500; }
+    default-floating-position x=100 y=50 relative-to="top-right"
+}
+
+// Bluetooth config float window
+window-rule {
+    match title="^Bluetooth$" app-id="blueberry.py"
+
+    open-floating true
+    default-column-width { fixed 320; }
+    default-window-height { fixed 580; }
+    default-floating-position x=1100 y=50
+}
+
+window-rule {
+    match title="^Alacritty@float$"
+
+    open-floating true
+}
+
+window-rule {
+    match is-floating=true
+    focus-ring {
+        on
+    }
+}
+
+window-rule {
+    match app-id="^org.pulseaudio.pavucontrol$"
+
+    open-floating true
+    default-column-width { fixed 720; }
+    default-window-height { fixed 480; }
+    default-floating-position x=20 y=20 relative-to="top-right"
+}
+
+window-rule {
+    match title="^Fcitx Configuration$" app-id="^org.fcitx.fcitx5-config-qt$"
+    open-floating true
+    default-column-width { fixed 950; }
+    default-window-height { fixed 490; }
+    default-floating-position x=20 y=20 relative-to="top-right"
+}
+
+// window-rule {
+//     match app-id="^swayimg.*"
+// 
+//     open-floating true
+// 
+//     default-column-width  { proportion 1.0; }
+//     default-window-height { proportion 1.0; }
+//     
+//     focus-ring {
+//         off
+//     }
+// }
+
+window-rule {
+    match title="^imv.*"
+
+    open-floating true
+}
+
+window-rule {
+    match title=".*的聊天记录$"
+
+    open-floating true
+}
+
+window-rule {
+    match title="^图片查看器$"
+
+    open-floating true
+}
+
+// Open the Firefox picture-in-picture player as floating by default.
+window-rule {
+    // This app-id regular expression will work for both:
+    // - host Firefox (app-id is "firefox")
+    // - Flatpak Firefox (app-id is "org.mozilla.firefox")
+    match app-id=r#"firefox$"# title="^Picture-in-Picture$"
+    open-floating true
+}
+
+// Example: block out two password managers from screen capture.
+// (This example rule is commented out with a "/-" in front.)
+/-window-rule {
+    match app-id=r#"^org\.keepassxc\.KeePassXC$"#
+    match app-id=r#"^org\.gnome\.World\.Secrets$"#
+
+    block-out-from "screen-capture"
+
+    // Use this instead if you want them visible on third-party screenshot tools.
+    // block-out-from "screencast"
+}
+
+// Example: enable rounded corners for all windows.
+// (This example rule is commented out with a "/-" in front.)
+window-rule {
+    geometry-corner-radius 5
+    clip-to-geometry true
+}
