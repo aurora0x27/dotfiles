@@ -1,73 +1,76 @@
-* {
-    font-size: 1.3rem;
-    color: #E0F3FF;
+@define-color accent #b4befe;
+@define-color bg-color #1e1e2ed0;
+@define-color fg-color #eeeeee;
+@define-color desc-color #cccccc;
+
+window {
+  background: transparent;
 }
 
-/*window {
-    background-color: rgba(30, 30, 46, 0.85);
-}*/
-
-#window,
-#match,
-#entry,
-#plugin,
-#main {
-    background: transparent;
+box.main {
+  padding: 5px;
+  margin: 10px;
+  border-radius: 10px;
+  border: 2px solid @accent;
+  background-color: @bg-color;
+  box-shadow: 0 0 5px black;
 }
 
-#match.activatable {
-    border-radius: 5px;
-    padding: 0.3rem 0.9rem;
-    margin-top: 0.01rem;
+
+text {
+  min-height: 30px;
+  padding: 5px;
+  border-radius: 5px;
+  color: @fg-color;
 }
 
-#match.activatable:first-child {
-    margin-top: 0.7rem;
+.matches {
+  background-color: rgba(0, 0, 0, 0);
+  border-radius: 10px;
 }
 
-#match.activatable:last-child {
-    margin-bottom: 0.6rem;
+box.plugin:first-child {
+  margin-top: 5px;
 }
 
-#plugin:hover #match.activatable {
-    border-radius: 10px;
-    padding: 0.3rem;
-    margin-top: 0.01rem;
-    margin-bottom: 0;
+box.plugin.info {
+  min-width: 200px;
 }
 
-#match:selected,
-#match:hover {
-    background: #1E1E2E;
+list.plugin {
+  background-color: rgba(0, 0, 0, 0);
 }
 
-#entry {
-    background: #1E1E2E;
-    /* border: 1px solid #0b0f10; */
-    margin: 0.5rem;
-    padding: 0.3rem 1rem;
+label.match {
+  color: @fg-color;
 }
 
-list>#plugin {
-    border-radius: 16px;
-    margin: 0 0.3rem;
+label.match.description {
+  font-size: 10px;
+  color: @desc-color;
 }
 
-list>#plugin:first-child {
-    margin-top: 0.3rem;
+label.plugin.info {
+  font-size: 14px;
+  color: @fg-color;
 }
 
-list>#plugin:last-child {
-    margin-bottom: 0.3rem;
+.match {
+  background: transparent;
 }
 
-list>#plugin:hover {
-    padding: 0.6rem;
+.match:selected {
+  border-left: 4px solid @accent;
+  background: transparent;
+  animation: fade 0.1s linear;
 }
 
-box#main {
-    background: #1E1E2E;
-    border: 1px solid #9CA5CB;
-    border-radius: 13px;
-    padding: 2px;
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
