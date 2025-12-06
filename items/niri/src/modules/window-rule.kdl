@@ -124,6 +124,17 @@ window-rule {
     open-floating true
 }
 
+window-rule {
+    match title="^Media viewer$" app-id="^org.telegram.desktop$"
+    focus-ring {
+        off
+    }
+    default-column-width { proportion 0.75; }
+    default-window-height { fixed 750; }
+    open-floating true
+    open-maximized false
+}
+
 // Open the Firefox picture-in-picture player as floating by default.
 window-rule {
     // This app-id regular expression will work for both:
