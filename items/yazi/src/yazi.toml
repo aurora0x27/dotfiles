@@ -13,4 +13,6 @@ edit = [
 open = [
   { run = 'open "$@"', desc = "Open" },
 ]
-# ...
+
+[tasks]
+image_bound      = [ 10000, 10000 ] 
