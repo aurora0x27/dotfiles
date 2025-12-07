@@ -1,7 +1,2 @@
 # Local configuration
 bootstrap.conf
-
-# symlinks
-items/fastfetch/src/config.jsonc
-items/lsd/src/colors.yaml
-items/yazi/src/theme.toml
