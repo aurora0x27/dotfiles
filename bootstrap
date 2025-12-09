@@ -453,7 +453,20 @@ while [[ $# -gt 0 ]]; do
             ;;
 
         -p)
-            exlude+=("$2")
+            if [[ -z "${2:-}" || "${2:-}" == -* ]]; then
+                log_error "Missing or invalid preset name after '-p'"
+                print_presets
+                exit 1
+            fi
+            key="$2"
+            if [[ -z "${presets[$key]+_}" ]]; then
+                log_error "Unknown preset '$key'"
+                print_presets
+                exit 1
+            fi
+            for item in ${presets[$key]}; do
+                target_list+=("$item")
+            done
             shift 2
             ;;
 
