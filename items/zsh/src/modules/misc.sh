@@ -38,3 +38,16 @@ function zle-line-init {
 }
 
 zle -N zle-line-init
+
+# Configuration of history
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+setopt nomatch
+unsetopt autocd extendedglob
+bindkey -v
+setopt INC_APPEND_HISTORY
+setopt SHARE_HISTORY
+setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_SPACE
+setopt HIST_SAVE_NO_DUPS
