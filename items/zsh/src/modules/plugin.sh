@@ -20,6 +20,10 @@ zinit light-mode for \
     zdharma-continuum/zinit-annex-patch-dl \
     zdharma-continuum/zinit-annex-rust
 
+zinit light zdharma-continuum/fast-syntax-highlighting
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-history-substring-search
+
 zinit wait="0" lucid light-mode for \
     OMZP::colored-man-pages/colored-man-pages.plugin.zsh 
 ### End of Zinit's installer chunk
