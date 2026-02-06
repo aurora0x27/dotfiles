@@ -18,6 +18,7 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 # enable menu select
 zmodload zsh/complist
 zstyle ':completion:*' menu select
+bindkey -M menuselect '^[[Z' reverse-menu-complete
 
 # nicer grouping
 zstyle ':completion:*' group-name ''
