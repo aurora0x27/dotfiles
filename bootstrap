@@ -426,7 +426,7 @@ else
     log_warn "No config file, create one..."
     echo "#!/usr/bin/env bash" >> bootstrap.conf
     echo "rootdir=$PWD" >> bootstrap.conf
-    echo "sys_id=''"  >> bootstrap.conf
+    echo "sys_id='$HOST'"  >> bootstrap.conf
     source ./bootstrap.conf
 fi
 
