@@ -208,6 +208,7 @@ function run_install() {
         fi
         if [[ -d "items/$target" && -f "items/$target/item.conf" ]]; then
             (
+                target=$target
                 if [[ ${verbose} == 1 ]]; then
                     log_info "Task: install $target"
                 fi
