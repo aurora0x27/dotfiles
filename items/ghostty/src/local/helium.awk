@@ -1,5 +1,5 @@
 BEGIN {
-    font_family = "ComicCode Nerd Font"
+    font_family = "Monaco Nerd Font"
     font_size = 13
     font_style = "Regular"
     shader = "~/.config/ghostty/shaders/cursor_blaze.glsl"
