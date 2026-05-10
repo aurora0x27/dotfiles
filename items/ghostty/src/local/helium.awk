@@ -6,7 +6,7 @@ BEGIN {
     background_opacity = 0.95
     adjust_cell_width = "-6%"
     adjust_cell_height = "0%"
-    shell = "/bin/zsh"
+    shell = "/opt/homebrew/bin/fish"
     window_height = 50
     window_width = 220
 }
