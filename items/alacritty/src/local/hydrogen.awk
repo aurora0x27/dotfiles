@@ -1,5 +1,5 @@
 BEGIN {
-    shell = "/bin/zsh"
+    shell = "/bin/fish"
     opacity = 0.95
     font_family_normal       = "ComicCode Nerd Font Medium"
     font_family_bold         = "ComicCode Nerd Font Medium"
