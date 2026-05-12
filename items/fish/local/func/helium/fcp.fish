@@ -45,7 +45,7 @@ function fcp --description "Copy file(s) as Finder items (or text path) to clipb
                 set -l escaped (string replace -a '\\' '\\\\' "$p" | string replace -a '"' '\\"')
                 set -a apple_script_parts "POSIX file \"$escaped\""
             end
-            set -l script "set the clipboard to {"(string join ", " $apple_script_parts)"}"
+            set -l script "set the clipboard to "(string join ", " $apple_script_parts)
             osascript -e "$script" 2>/dev/null
             if test $status -ne 0
                 echo "fcp: osascript failed (invalid characters in path?)" >&2
