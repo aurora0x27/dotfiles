@@ -16,16 +16,11 @@
 
 # Kali prompt improved
 # ┌──(venv)-(username@hostname)─[~]-<branch* 114+10^514- x!> ↑
-# └─$                                               --INSERT--
+# └─$
 
 format = '''
 [┌─${custom.virtual}─\($username[@](blue bold)$hostname\)─\[${custom.directory}\]$git_branch$git_status](green)
-[└─](green)[\$ ](blue bold)'''
-
-# Vi mode, for zsh/fish
-right_format = """
-$character\
-"""
+[└─](green)$character '''
 
 [username]
 show_always = true
@@ -43,7 +38,7 @@ style  = 'blue bold'
 
 
 [git_status]
-format     = "[$modified]($style)( $staged$renamed$deleted)([ $untracked$conflict]($style))>[$ahead_behind](purple bold)"
+format     = "[$modified]($style)( $staged$renamed$deleted)([ $untracked$conflicted]($style))>[$ahead_behind](purple bold)"
 style      = "bold red"
 untracked  = "x"
 modified   = "*"
@@ -69,9 +64,9 @@ when    = true
 
 [character]
 format                    = "$symbol"
-success_symbol            = "[--INSERT--](bold green)"
-error_symbol              = "[--INSERT--](bold red)"
-vimcmd_symbol             = "[--NORMAL--](bold blue)"
-vimcmd_replace_one_symbol = "[--REPLACE ONE--](purple)"
-vimcmd_replace_symbol     = "[--REPLACE--](purple)"
-vimcmd_visual_symbol      = "[--VISUAL--](yellow)"
+success_symbol            = "[\\$](bold blue)"
+error_symbol              = "[\\$](bold red)"
+vimcmd_symbol             = "[#](bold blue)"
+vimcmd_replace_one_symbol = "[@](bold purple)"
+vimcmd_replace_symbol     = "[@](bold purple)"
+vimcmd_visual_symbol      = "[%](bold yellow)"
