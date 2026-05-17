@@ -158,7 +158,7 @@ function show_status() {
     for item_dir in items/*; do
         if [[ -d "$item_dir" && -f "$item_dir/item.conf" ]]; then
         (
-            export item_dir="$rootdir/items/$target"
+            export item_dir="$item_dir"
             # Source the item.conf file
             source "$item_dir/item.conf"
 
