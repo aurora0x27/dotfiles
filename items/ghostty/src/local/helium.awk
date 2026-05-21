@@ -7,6 +7,6 @@ BEGIN {
     adjust_cell_width = "-6%"
     adjust_cell_height = "0%"
     shell = "/opt/homebrew/bin/fish"
-    window_height = 50
-    window_width = 220
+    window_height = 45
+    window_width = 200
 }
