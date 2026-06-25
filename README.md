@@ -20,6 +20,7 @@
 - foot
 - ghostty
 - gimp-patch
+- git-delta
 - gitignore
 - gnome-setting
 - gtk-theme
@@ -27,9 +28,11 @@
 - hyprlock
 - imv
 - karabiner
+- keyd
 - kitty
 - linuxqq
 - lsd
+- ly-dm
 - matrix
 - mpv
 - neovide
