@@ -21,5 +21,5 @@ set -gx                         PNPM_HOME "$HOME/.local/share/pnpm"
 contains "$PNPM_HOME" $PATH; or fish_add_path "$PNPM_HOME"
 # pnpm end
 
-fish_add_path "$HOME/.luarocks/bin" "$HOME/.cargo/bin"
+fish_add_path "$HOME/.luarocks/bin" "$HOME/.cargo/bin" "$HOME/.zvm/bin"
 set -gx VCPKG_ROOT "$HOME/.local/opt/vcpkg"
