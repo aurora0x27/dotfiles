@@ -1,0 +1,19 @@
+{
+  "enable_sticky_buffer": true,
+  "allow_workspace_patch": true,
+  "workspace_patch_always_restrict": false,
+  "blink_use_binary": false,
+  "lang_blacklist": "java",
+  "lang_whitelist": "",
+  "enable_lsp": true,
+  "lang_levels": "nginx:-ts",
+  "disable_im_switch": false,
+  "transparent_mode": true,
+  "diagnose_mode": "detailed",
+  "diagnose_with_fancy_underline": true,
+  "dashboard_art_name": "DoomNvim",
+  "use_neogit": true,
+  "use_ufo_as_fold_provider": true,
+  "integrated_terminal_shell": "fish",
+  "enable_current_line_blame": true
+}
