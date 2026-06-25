@@ -1,0 +1,21 @@
+{
+  "sandbox_mode": "none",
+  "use_neogit": true,
+  "enable_sticky_buffer": true,
+  "allow_workspace_patch": true,
+  "integrated_terminal_shell": "/opt/homebrew/bin/fish",
+  "workspace_patch_always_restrict": false,
+  "diagnose_mode": "detailed",
+  "diagnose_with_fancy_underline": true,
+  "blink_use_binary": true,
+  "enable_lsp": true,
+  "lang_blacklist": "java,nginx",
+  "lang_whitelist": "",
+  "lang_levels": "xmake:-lsp;",
+  "disable_im_switch": false,
+  "transparent_mode": true,
+  "dashboard_art_name": "Ayanami Rei",
+  "use_emmylua_ls": false,
+  "use_ufo_as_fold_provider": true,
+  "enable_current_line_blame": true
+}
