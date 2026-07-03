@@ -10,3 +10,7 @@ title_text = $(realpath --relative-to=$(pwd) $imv_current_file)
 <Shift+L> = next
 <space> = next
 <Shift+space> = prev
+<equal> = zoom 1
+<minus> = zoom -1
+
+<backslash> = rotate by 90
