@@ -16,7 +16,7 @@ binds {
     // Suggested binds for running programs: terminal, app launcher, screen locker.
     Mod+B hotkey-overlay-title="Open Browser Window" { spawn "firefox"; }
     Mod+Space hotkey-overlay-title="Run Application launcher" { spawn "sh" "-c" "pkill -x anyrun || anyrun"; }
-    Mod+M hotkey-overlay-title="Run Application Menu" { spawn "sh" "-c" "pkill rofi || ~/.config/rofi/scripts/launch.sh drawer"; }
+    Mod+M hotkey-overlay-title="Run Mailbox" { spawn "sh" "-c" "thunderbird -mail"; }
     Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Mod+S hotkey-overlay-title="Open Gnome Settings" { spawn "sh" "-c" "XDG_CURRENT_DESKTOP=Gnome gnome-control-center"; }
@@ -91,7 +91,7 @@ binds {
     Mod+Shift+Ctrl+L     { move-column-to-monitor-right; }
 
     // Lock screen
-    Ctrl+Alt+L { spawn "hyprlock"; }
+    Mod+X hotkey-overlay-title="Lock screen" { spawn "hyprlock"; }
 
     // The quit action will show a confirmation dialog to avoid accidental exits.
     Mod+Shift+E { spawn "wlogout"; }
