@@ -90,31 +90,31 @@ item_new() {
     echo ""                                                            >> "items/$item/item.conf"
 
     echo "# Check the dependency return false if installed dependency" >> "items/$item/item.conf"
-    echo "function check_dep() {"                                      >> "items/$item/item.conf"
+    echo "check_dep() {"                                               >> "items/$item/item.conf"
     echo "    return 0"                                                >> "items/$item/item.conf"
     echo "}"                                                           >> "items/$item/item.conf"
     echo ""                                                            >> "items/$item/item.conf"
 
     echo "# Things to do to install the dependency"                    >> "items/$item/item.conf"
-    echo "function install_dep() {"                                    >> "items/$item/item.conf"
+    echo "install_dep() {"                                             >> "items/$item/item.conf"
     echo "    :;"                                                      >> "items/$item/item.conf"
     echo "}"                                                           >> "items/$item/item.conf"
     echo ""                                                            >> "items/$item/item.conf"
 
     echo "# Things to do to install the item"                          >> "items/$item/item.conf"
-    echo "function install() {"                                        >> "items/$item/item.conf"
+    echo "install() {"                                                 >> "items/$item/item.conf"
     echo "    :;"                                                      >> "items/$item/item.conf"
     echo "}"                                                           >> "items/$item/item.conf"
     echo ""                                                            >> "items/$item/item.conf"
 
     echo "# Check if the item is installed, return false if installed" >> "items/$item/item.conf"
-    echo "function check() {"                                          >> "items/$item/item.conf"
-    echo "    return 0"                                                >> "items/$item/item.conf"
+    echo "check() {"                                                   >> "items/$item/item.conf"
+    echo "    return 1"                                                >> "items/$item/item.conf"
     echo "}"                                                           >> "items/$item/item.conf"
     echo ""                                                            >> "items/$item/item.conf"
 
     echo "# Things to do to uninstall the item"                        >> "items/$item/item.conf"
-    echo "function uninstall() {"                                      >> "items/$item/item.conf"
+    echo "uninstall() {"                                               >> "items/$item/item.conf"
     echo "    :;"                                                      >> "items/$item/item.conf"
     echo "}"                                                           >> "items/$item/item.conf"
 
