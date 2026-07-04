@@ -50,7 +50,7 @@ window-rule {
     open-floating true
     default-column-width { fixed 800; }
     default-window-height { fixed 500; }
-    default-floating-position x=100 y=50 relative-to="top-right"
+    // default-floating-position x=10 y=10 relative-to="top-right"
 }
 
 // Bluetooth config float window
