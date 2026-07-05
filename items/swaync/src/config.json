@@ -1,1 +1,6 @@
-{}
+{
+  "timeout": 4,
+  "timeout-low": 5,
+  "timeout-critical": 6,
+  "widgets": ["title", "dnd", "notifications"]
+}

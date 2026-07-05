@@ -1,12 +1,45 @@
+:root {
+  /* Base */
+  --base: #1e1e2e;
+  --mantle: #181825;
+  --surface0: #313244;
+  --surface1: #45475a;
+  --surface2: #585b70;
+
+  /* Text */
+  --text: #cdd6f4;
+  --subtext0: #a6adc8;
+  --subtext1: #bac2de;
+
+  /* Accent */
+  --blue: #89b4fa;
+  --sky: #74c7ec;
+  --teal: #94e2d5;
+  --yellow: #f9e2af;
+  --peach: #fab387;
+  --pink: #f5c2e7;
+  --red: #f38ba8;
+  --rosewater: #f5e0dc;
+  --orange: #eba0ac;
+
+  /* Radius */
+  --radius: 12px;
+  --radius-small: 8px;
+
+  /* Background */
+  --panel-bg: rgba(30, 30, 46, 0.85);
+  --popup-bg: rgba(24, 24, 37, 0.85);
+}
+
 * {
   all: unset;
   font-size: 14px;
-  font-family: "Maple Mono NF CN";
+  font-family: "Iosevka Nerd Font", "LXGW WenKai Mono", "Maple Mono NF CN";
   transition: 200ms;
 }
 
 trough highlight {
-  background: #cdd6f4;
+  background: var(--text);
 }
 
 scale {
@@ -17,42 +50,46 @@ scale trough {
   margin: 0rem 1rem;
   min-height: 8px;
   min-width: 70px;
-  border-radius: 12.6px;
+  border-radius: var(--radius);
 }
 
 trough slider {
   margin: -10px;
-  border-radius: 12.6px;
+  border-radius: var(--radius);
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.8);
   transition: all 0.2s ease;
-  background-color: #89b4fa;
+  background-color: var(--blue);
 }
 
 trough slider:hover {
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.8), 0 0 8px #89b4fa;
+  box-shadow:
+    0 0 2px rgba(0, 0, 0, 0.8),
+    0 0 8px var(--blue);
 }
 
 trough {
-  background-color: #313244;
+  background-color: var(--surface0);
 }
 
 /* notifications */
 .notification-background {
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px #45475a;
-  border-radius: 12.6px;
+  box-shadow:
+    0 0 8px 0 rgba(0, 0, 0, 0.8),
+    inset 0 0 0 1px var(--surface1);
+  border-radius: var(--radius);
   margin: 18px;
-  background: rgba(24, 24, 37, 0.9);
-  color: #cdd6f4;
+  background: var(--popup-bg);
+  color: var(--text);
   padding: 0;
 }
 
 .notification-background .notification {
   padding: 7px;
-  border-radius: 12.6px;
+  border-radius: var(--radius);
 }
 
 .notification-background .notification.critical {
-  box-shadow: inset 0 0 7px 0 #f38ba8;
+  box-shadow: inset 0 0 7px 0 var(--red);
 }
 
 .notification .notification-content {
@@ -65,15 +102,15 @@ trough {
 }
 
 .notification-content .summary {
-  color: #cdd6f4;
+  color: var(--text);
 }
 
 .notification-content .time {
-  color: #a6adc8;
+  color: var(--subtext0);
 }
 
 .notification-content .body {
-  color: #bac2de;
+  color: var(--subtext1);
 }
 
 .notification > *:last-child > * {
@@ -83,74 +120,76 @@ trough {
 .notification-background .close-button {
   margin: 7px;
   padding: 2px;
-  border-radius: 6.3px;
-  color: #1e1e2e;
-  background-color: #f38ba8;
+  border-radius: var(--radius-small);
+  color: var(--base);
+  background-color: var(--red);
 }
 
 .notification-background .close-button:hover {
-  background-color: #eba0ac;
+  background-color: var(--orange);
 }
 
 .notification-background .close-button:active {
-  background-color: #f5c2e7;
+  background-color: var(--pink);
 }
 
 .notification .notification-action {
-  border-radius: 7px;
-  color: #cdd6f4;
-  box-shadow: inset 0 0 0 1px #45475a;
+  border-radius: var(--radius-small);
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--surface1);
   margin: 4px;
   padding: 8px;
   font-size: 0.2rem; /* controls the button size not text size*/
 }
 
 .notification .notification-action {
-  background-color: #313244;
+  background-color: var(--surface0);
 }
 
 .notification .notification-action:hover {
-  background-color: #45475a;
+  background-color: var(--surface1);
 }
 
 .notification .notification-action:active {
-  background-color: #585b70;
+  background-color: var(--surface2);
 }
 
 .notification.critical progress {
-  background-color: #f38ba8;
+  background-color: var(--red);
 }
 
 .notification.low progress,
 .notification.normal progress {
-  background-color: #89b4fa;
+  background-color: var(--blue);
 }
 
 .notification progress,
 .notification trough,
 .notification progressbar {
-  border-radius: 12.6px;
+  border-radius: var(--radius);
   padding: 3px 0;
 }
 
 /* control center */
 .control-center {
-  box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.8), inset 0 0 0 1px #313244;
-  border-radius: 12.6px;
-  background-color: rgba(30, 30, 46, 0.9);
+  box-shadow:
+    0 0 8px 0 rgba(0, 0, 0, 0.8),
+    inset 0 0 0 1px var(--surface0);
+  border-radius: var(--radius);
+  background-color: var(--panel-bg);
   margin: 20px;
-  color: #cdd6f4;
+  color: var(--text);
   padding: 14px;
 }
 
 .control-center .notification-background {
-  border-radius: 7px;
-  box-shadow: inset 0 0 0 1px #45475a;
+  border-radius: var(--radius-small);
+  box-shadow: inset 0 0 0 1px var(--surface1);
   margin: 4px 10px;
 }
 
 .control-center .notification-background .notification {
-  border-radius: 7px;
+  border-radius: var(--radius-small);
 }
 
 .control-center .notification-background .notification.low {
@@ -158,24 +197,24 @@ trough {
 }
 
 .control-center .widget-title > label {
-  color: #cdd6f4;
+  color: var(--text);
   font-size: 1.3em;
 }
 
 .control-center .widget-title button {
-  border-radius: 7px;
-  color: #cdd6f4;
-  background-color: #313244;
-  box-shadow: inset 0 0 0 1px #45475a;
+  border-radius: var(--radius-small);
+  color: var(--text);
+  background-color: var(--surface0);
+  box-shadow: inset 0 0 0 1px var(--surface1);
   padding: 8px;
 }
 
 .control-center .widget-title button:hover {
-  background-color: #45475a;
+  background-color: var(--surface1);
 }
 
 .control-center .widget-title button:active {
-  background-color: #585b70;
+  background-color: var(--surface2);
 }
 
 .control-center .notification-group {
@@ -183,7 +222,7 @@ trough {
 }
 
 .control-center .notification-group:focus .notification-background {
-  background-color: #313244;
+  background-color: var(--surface0);
 }
 
 scrollbar slider {
@@ -198,58 +237,59 @@ scrollbar trough {
 /* dnd */
 .widget-dnd {
   margin-top: 5px;
-  border-radius: 8px;
+  border-radius: var(--radius-small);
   font-size: 1.1rem;
 }
 
 .widget-dnd > switch {
   font-size: initial;
-  border-radius: 8px;
-  background: #313244;
+  border-radius: var(--radius-small);
+  background: var(--surface0);
   box-shadow: none;
 }
 
 .widget-dnd > switch:checked {
-  background: #89b4fa;
+  background: var(--blue);
 }
 
 .widget-dnd > switch slider {
-  background: #45475a;
-  border-radius: 8px;
+  background: var(--surface1);
+  border-radius: var(--radius-small);
 }
 
 /* mpris */
 .widget-mpris-player {
-  background: #313244;
-  border-radius: 12.6px;
-  color: #cdd6f4;
+  margin-top: 10px;
+  background: var(--surface0);
+  border-radius: var(--radius);
+  color: var(--text);
 }
 
 .mpris-overlay {
-  background-color: #313244;
+  background-color: var(--surface0);
   opacity: 0.9;
   padding: 15px 10px;
 }
 
 .widget-mpris-album-art {
   -gtk-icon-size: 100px;
-  border-radius: 12.6px;
+  border-radius: var(--radius);
   margin: 0 10px;
 }
 
 .widget-mpris-title {
   font-size: 1.2rem;
-  color: #cdd6f4;
+  color: var(--text);
 }
 
 .widget-mpris-subtitle {
   font-size: 1rem;
-  color: #bac2de;
+  color: var(--subtext1);
 }
 
 .widget-mpris button {
-  border-radius: 12.6px;
-  color: #cdd6f4;
+  border-radius: var(--radius);
+  color: var(--text);
   margin: 0 5px;
   padding: 2px;
 }
@@ -259,11 +299,11 @@ scrollbar trough {
 }
 
 .widget-mpris button:hover {
-  background-color: #313244;
+  background-color: var(--surface0);
 }
 
 .widget-mpris button:active {
-  background-color: #45475a;
+  background-color: var(--surface1);
 }
 
 .widget-mpris button:disabled {
@@ -276,17 +316,17 @@ scrollbar trough {
 }
 
 .widget-menubar > box > .menu-button-bar > :last-child {
-  color: #f38ba8;
+  color: var(--red);
 }
 
 .power-buttons button:hover,
 .powermode-buttons button:hover,
 .screenshot-buttons button:hover {
-  background: #313244;
+  background: var(--surface0);
 }
 
 .control-center .widget-label > label {
-  color: #cdd6f4;
+  color: var(--text);
   font-size: 2rem;
 }
 
@@ -303,21 +343,21 @@ scrollbar trough {
 }
 
 .widget-volume label {
-  color: #74c7ec;
+  color: var(--sky);
   padding: 0 1rem;
 }
 
 .widget-volume trough highlight {
-  background: #74c7ec;
+  background: var(--sky);
 }
 
 .widget-backlight trough highlight {
-  background: #f9e2af;
+  background: var(--yellow);
 }
 
 .widget-backlight label {
   font-size: 1.5rem;
-  color: #f9e2af;
+  color: var(--yellow);
 }
 
 .widget-backlight .KB {
