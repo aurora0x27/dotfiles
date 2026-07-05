@@ -36,13 +36,27 @@
     "rewrite": {
       ".*Mozilla Firefox.*": "[Mozilla FireFox]",
       ".*Google Chrome.*": "[Google Chrome]",
-      "^(.{15}).*(.{15})$": "$1…$2",
+      "^(.{12}).*(.{12})$": "$1…$2",
     },
   },
   "clock": {
-    "format": "{:%Y-%m-%d %A %H:%M:%S}",
+    "format": "{:%Y-%m-%d %a %H:%M:%S}",
     "interval": 1,
-    "tooltip-format": "{:%A %d %B %Y}",
+    "tooltip-format": "{calendar}",
+    "calendar": {
+      "mode": "month",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "first-day-of-week": 1,
+      "format": {
+        "months": "<span color='#f5e0dc'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#f38ba8'><b>w{}</b></span>",
+        "weekdays": "<span color='#fab387'><b>{}</b></span>",
+        "today": "<span bgcolor='#94e2d5' color='#1e1e2e'><b>{}</b></span>",
+      },
+    },
+    "on-click": "thunderbird -calendar",
   },
   "tray": {
     "spacing": 10,
@@ -53,7 +67,7 @@
     "critical-threshold": 80,
   },
   "cpu": {
-    "format": "[Cpu {usage}%]",
+    "format": "[Cpu {usage:>2}%]",
     "interval": 1,
   },
   "custom/battery": {
@@ -72,25 +86,25 @@
   },
   "custom/swaync": {
     "tooltip": true,
-    "format": "{icon}",
+    "format": "{icon}<span rise=\"3000\" size=\"8000\" foreground='#f2cdcd'>{text}</span>",
     "format-icons": {
-      "notification": "<span foreground='#f38ba8'></span>",
-      "none": "<span foreground='#f9e2af'></span>",
+      "notification": "<span foreground='#f2cdcd'>  </span>",
+      "none": "<span foreground='#f2cdcd'>  </span>",
 
-      "dnd-notification": "<span foreground='#f38ba8'></span>",
-      "dnd-none": "<span foreground='#89b4fa'></span>",
+      "dnd-notification": "<span foreground='#f2cdcd'>  </span>",
+      "dnd-none": "<span foreground='#f2cdcd'>  </span>",
 
-      "inhibited-notification": "<span foreground='#f38ba8'></span>",
-      "inhibited-none": "<span foreground='#f9e2af'></span>",
+      "inhibited-notification": "<span foreground='#f2cdcd'>  </span>",
+      "inhibited-none": "<span foreground='#f2cdcd'>  </span>",
 
-      "dnd-inhibited-notification": "<span foreground='#f38ba8'></span>",
-      "dnd-inhibited-none": "<span foreground='#89b4fa'></span>",
+      "dnd-inhibited-notification": "<span foreground='#f2cdcd'>  </span>",
+      "dnd-inhibited-none": "<span foreground='#f2cdcd'>  </span>",
     },
     "return-type": "json",
     "exec-if": "which swaync-client",
     "exec": "swaync-client -swb",
     "on-click": "sleep 0.1 && swaync-client -t -sw",
     "on-click-right": "swaync-client -d -sw",
-    "escape": true,
+    "escape": false,
   },
 }
