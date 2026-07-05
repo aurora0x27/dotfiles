@@ -20,6 +20,7 @@ binds {
     Mod+T hotkey-overlay-title="Open a Terminal: alacritty" { spawn "alacritty"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Mod+S hotkey-overlay-title="Open Gnome Settings" { spawn "sh" "-c" "XDG_CURRENT_DESKTOP=Gnome gnome-control-center"; }
+    Mod+N hotkey-overlay-title="Open Notify Center" { spawn-sh "sleep 0.1 && swaync-client -t -sw"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -92,9 +93,6 @@ binds {
 
     // Lock screen
     Mod+X hotkey-overlay-title="Lock screen" { spawn "hyprlock"; }
-
-    // The quit action will show a confirmation dialog to avoid accidental exits.
-    Mod+Shift+E { spawn "wlogout"; }
 
     // Fuzzy search clipboard history
     Mod+P { spawn-sh "alacritty --title fzf-clipboard --command $HOME/.config/niri/scripts/fzf-clip.sh"; }
